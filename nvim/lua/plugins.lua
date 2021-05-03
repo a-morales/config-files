@@ -20,6 +20,7 @@ return require('packer').startup(function (use)
   use 'folke/lsp-colors.nvim'
   use 'kyazdani42/nvim-web-devicons'
   use 'folke/lsp-trouble.nvim'
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
   use 'W0ng/vim-hybrid'
   use 'tmux-plugins/vim-tmux'
@@ -36,7 +37,8 @@ return require('packer').startup(function (use)
   use 'windwp/nvim-autopairs'
   use 'GEverding/vim-hocon'
   use {'hrsh7th/nvim-compe', requires = {{'hrsh7th/vim-vsnip'}}}
-  use 'tokyonight.nvim'
+  -- use 'tokyonight.nvim'
+  use 'keith/swift.vim'
 
   require('plugins.fzf')
   require('plugins.metals')
