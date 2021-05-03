@@ -1,0 +1,7 @@
+bin/
+oni2/
+secrets.zsh
+nvim/autoload
+nvim/plugged
+nvim/plugin
+

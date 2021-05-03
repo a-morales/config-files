@@ -1,0 +1,37 @@
+# enable this line and last line in order enable profiling of zsh load time
+# zmodload zsh/zprof
+autoload -U select-word-style
+select-word-style bash
+
+source ~/.config/zsh/aliases.zsh
+source ~/.config/zsh/colors.zsh
+source ~/.config/zsh/setop.zsh
+# source ~/.config/zsh/completion.zsh
+source ~/.config/zsh/bindkeys.zsh
+source ~/.config/zsh/exports.zsh
+source ~/.config/zsh/functions.zsh
+# source ~/.config/zsh/secrets.zsh
+
+if which rbenv > /dev/null; then
+  eval "$(rbenv init -)"
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source ~/.config/bin/fzf-marks/fzf-marks.plugin.zsh
+# source ~/.config/bin/zsh-histdb/sqlite-history.zsh
+
+
+HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
+autoload -Uz add-zsh-hook
+
+if which fnm > /dev/null; then
+  eval "$(fnm env)"
+fi
+if which starship > /dev/null; then
+  eval "$(starship init zsh)"
+fi
+
+export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+# zprof
+
