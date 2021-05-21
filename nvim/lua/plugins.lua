@@ -37,8 +37,11 @@ return require('packer').startup(function (use)
   use 'windwp/nvim-autopairs'
   use 'GEverding/vim-hocon'
   use {'hrsh7th/nvim-compe', requires = {{'hrsh7th/vim-vsnip'}}}
-  -- use 'tokyonight.nvim'
+  use 'folke/tokyonight.nvim'
   use 'keith/swift.vim'
+  use 'glepnir/zephyr-nvim'
+  use 'shaunsingh/nord.nvim'
+  use 'kyazdani42/nvim-tree.lua'
 
   require('plugins.fzf')
   require('plugins.metals')
@@ -46,4 +49,6 @@ return require('packer').startup(function (use)
   require('nvim-autopairs').setup({
     local_break_line_filetype = { 'scala' }
   })
+  -- require('nord').set()
+  -- require('zephyr')
 end)

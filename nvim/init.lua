@@ -25,4 +25,6 @@ require('keybindings')
 require('commands')
 require('settings')
 
+-- vim.g.tokyonight_style = 'storm'
 vim.cmd 'colorscheme hybrid'
+-- vim.cmd 'colorscheme tokyonight'

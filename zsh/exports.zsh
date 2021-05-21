@@ -19,4 +19,4 @@ export PATH="$HOME/.config/bin:$PATH:$HOME/Library/Application Support/Coursier/
 # export AWS_REGION=us-east-1
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-11.jdk/Contents/Home"
 
-export STARSHIP_CONFIG=~/.config/startship/config.toml
+export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
