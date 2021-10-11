@@ -14,6 +14,8 @@ alias rd='cd $(git rev-parse --show-toplevel)'
 
 alias gst='git status'
 alias gch='git checkout'
+alias gcb='git for-each-ref --format="%(refname:short)" refs/heads | sort | uniq | fzf | xargs git checkout'
+alias gcr='git for-each-ref --format="%(refname:short)" refs/remotes | sort | uniq | fzf | xargs git checkout -t'
 alias gcm='git checkout $(git town main-branch)'
 alias gct='git checkout -t'
 alias gdi='git diff'
@@ -31,3 +33,4 @@ alias gco='git commit'
 alias gitp='git clone $(pbpaste)'
 
 alias ag='ag --path-to-ignore ~/.ignore'
+alias rg='rg -S'

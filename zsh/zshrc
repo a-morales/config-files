@@ -10,7 +10,7 @@ source ~/.config/zsh/setop.zsh
 source ~/.config/zsh/bindkeys.zsh
 source ~/.config/zsh/exports.zsh
 source ~/.config/zsh/functions.zsh
-# source ~/.config/zsh/secrets.zsh
+source ~/.config/zsh/secrets.zsh
 
 if which rbenv > /dev/null; then
   eval "$(rbenv init -)"

@@ -37,6 +37,8 @@ yabai -m rule --add app="^Cleanshot X$" manage=off
 yabai -m rule --add app="^iStat Menus Status$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^NotePlan 3$" title="^$" manage=off grid=3:7:3:1:2:1
 yabai -m rule --add app="^NotePlan 3$" title="^Command Bar$" manage=off grid=3:7:3:1:2:1
+yabai -m rule --add app="^NotePlan 3$" title="^Preferences$" manage=off 
 yabai -m rule --add app="^Poolside FM$" manage=off
+yabai -m rule --add app="^Kube Forwarder$" manage=off
 
 echo "yabai configuration loaded.."

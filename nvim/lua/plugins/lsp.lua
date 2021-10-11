@@ -13,11 +13,11 @@ require('trouble').setup({
 })
 
 Keybind.global({
-  { 'n', 'gh', [[:Lspsaga lsp_finder<CR>]]},
-  { 'n', 'gd', [[:Lspsaga preview_definition<CR>]]},
-  { 'n', 'gs', [[:Lspsaga signature_help<CR>]]},
-  { 'n', 'gr', [[:Lspsaga rename<CR>]]},
-  { 'n', 'ca', [[:Lspsaga code_action<CR>]]},
+  { 'n', '<C-g>h', [[:Lspsaga lsp_finder<CR>]]},
+  { 'n', '<C-g>d', [[:Lspsaga preview_definition<CR>]]},
+  { 'n', '<C-g>s', [[:Lspsaga signature_help<CR>]]},
+  { 'n', '<C-g>r', [[:Lspsaga rename<CR>]]},
+  { 'n', '<C-g>ca', [[:Lspsaga code_action<CR>]]},
   { 'n', 'K',  [[:Lspsaga hover_doc<CR>]] },
   { 'n', 'tx', [[:LspTroubleToggle<CR>]]},
 })

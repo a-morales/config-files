@@ -28,6 +28,7 @@ return require('packer').startup(function (use)
   use { 'junegunn/fzf', run = function() fn['fzf#install']() end }
   use 'junegunn/fzf.vim'
   use 'airblade/vim-gitgutter'
+  use 'tveskag/nvim-blame-line'
   use 'tpope/vim-commentary'
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
@@ -42,6 +43,12 @@ return require('packer').startup(function (use)
   use 'glepnir/zephyr-nvim'
   use 'shaunsingh/nord.nvim'
   use 'kyazdani42/nvim-tree.lua'
+  use 'nvim-lua/popup.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'nvim-telescope/telescope.nvim'
+  -- use 'https://gitlab.com/__tpb/monokaipro.nvim'
+  use 'kristijanhusak/orgmode.nvim'
+  use 'projekt0n/github-nvim-theme'
 
   require('plugins.fzf')
   require('plugins.metals')
@@ -49,6 +56,7 @@ return require('packer').startup(function (use)
   require('nvim-autopairs').setup({
     local_break_line_filetype = { 'scala' }
   })
+  require('plugins.orgmode')
   -- require('nord').set()
   -- require('zephyr')
 end)

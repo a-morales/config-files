@@ -14,7 +14,7 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 export GOPATH="$HOME/Code/go"
 
-export PATH="$HOME/.config/bin:$PATH:$HOME/Library/Application Support/Coursier/bin"
+export PATH="$HOME/.config/bin:$PATH:$HOME/Library/Application Support/Coursier/bin:$HOME/.bin/bin"
 
 # export AWS_REGION=us-east-1
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-11.jdk/Contents/Home"
