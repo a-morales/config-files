@@ -26,33 +26,6 @@ Keybind.global({
 	{ 'n', ']c', '<cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>' },
 })
 
--- completion
--- This is just copied from the docs, edit to your liking
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  allow_prefix_unmatch = false;
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    vsnip = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    spell = true;
-    tags = true;
-    snippets_nvim = true;
-    orgmode = true;
-  };
-}
-
 map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
 map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 map('i', '<CR>', 'compe#confirm("\\<CR>")', {expr = true})
@@ -69,7 +42,7 @@ cmd [[hi! link LspReferenceWrite CursorColumn]]
 -- LSP Setup ---------------------
 ----------------------------------
 metals_config = require'metals'.bare_config
-metals_config.init_options.statusBarProvider = 'on'
+-- metals_config.init_options.statusBarProvider = 'on'
 
 -- Example of settings
 metals_config.settings = {

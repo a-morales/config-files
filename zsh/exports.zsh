@@ -10,7 +10,7 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
-export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_DEFAULT_COMMAND='rg --files'
 
 export GOPATH="$HOME/Code/go"
 

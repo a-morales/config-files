@@ -1,5 +1,8 @@
 bin/
 oni2/
+iterm2/
+raycast/
+yarn/
 secrets.zsh
 nvim/autoload
 nvim/plugged

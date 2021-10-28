@@ -16,6 +16,10 @@ return require('packer').startup(function (use)
 
   -- LSP plugins
   use 'neovim/nvim-lspconfig'
+  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+  use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+  use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+  use 'L3MON4D3/LuaSnip'
   use 'glepnir/lspsaga.nvim'
   use 'folke/lsp-colors.nvim'
   use 'kyazdani42/nvim-web-devicons'
@@ -37,7 +41,6 @@ return require('packer').startup(function (use)
   use 'scalameta/nvim-metals'
   use 'windwp/nvim-autopairs'
   use 'GEverding/vim-hocon'
-  use {'hrsh7th/nvim-compe', requires = {{'hrsh7th/vim-vsnip'}}}
   use 'folke/tokyonight.nvim'
   use 'keith/swift.vim'
   use 'glepnir/zephyr-nvim'
@@ -47,16 +50,12 @@ return require('packer').startup(function (use)
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
   -- use 'https://gitlab.com/__tpb/monokaipro.nvim'
-  use 'kristijanhusak/orgmode.nvim'
   use 'projekt0n/github-nvim-theme'
 
   require('plugins.fzf')
-  require('plugins.metals')
+  -- require('plugins.metals')
   require('plugins.lsp')
   require('nvim-autopairs').setup({
     local_break_line_filetype = { 'scala' }
   })
-  require('plugins.orgmode')
-  -- require('nord').set()
-  -- require('zephyr')
 end)
