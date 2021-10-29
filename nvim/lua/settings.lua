@@ -1,5 +1,3 @@
-
-
 Option.g({
   syntax = "on",
   encoding = "UTF-8",
