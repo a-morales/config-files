@@ -1,16 +1,19 @@
-Keybind.global({
-  { 'n', '<Leader>ew', ":e <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>" },
-  { 'n', '<Leader>es', ":sp <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>" },
-  { 'n', '<Leader>ev', ":vsp <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>" },
-  { 'n', '<Leader>et', ":tabe <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>" },
-  { 'n', '<C-p>', ':GFiles<CR>' },
-  { 'n', '<C-space>', ':Buffers<CR>' },
-  { 'n', '<leader>ag', ":Rg<CR>" },
-  { 'n', '<leader>mk', ":!mkdir <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>" },
-  { 'n', '<leader>r', ':windo redraw!<CR>' },
-  { 'n', '<leader>R', ':luafile $MYVIMRC<CR>' },
-  { 'n', '<leader><space>', ':noh<CR>', { noremap = true }},
-  { 'n', '<C-n>', ':NvimTreeToggle<CR>'},
-  { 'n', '<leader>n', ':NvimTreeFindFile<CR>'},
-  { 'n', '<leader>b', ':ToggleBlameLine<CR>'},
-})
+require'mapx'.setup{ global = true }
+
+vim.g.mapleader = ' '
+
+nmap('<Leader>ew', ":e <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>")
+nmap('<Leader>es', ":sp <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>")
+nmap('<Leader>ev', ":vsp <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>")
+nmap('<Leader>et', ":tabe <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>")
+nmap('<leader>mk', ":!mkdir <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>")
+nmap('<leader>r', ':windo redraw!<CR>')
+nmap('<leader>R', ':luafile $MYVIMRC<CR>')
+nnoremap('<leader><space>', ':noh<CR>')
+
+nmap('<C-p>', ':FzfLua files<CR>')
+nmap('<C-space>', ':FzfLua buffers<CR>')
+nmap('<leader>rg', ':FzfLua live_grep<CR>')
+-- nmap('<C-n>', ':NvimTreeToggle<CR>)
+-- nmap('<leader>n', ':NvimTreeFindFile<CR>)
+-- nmap('<leader>b', ':ToggleBlameLine<CR>)

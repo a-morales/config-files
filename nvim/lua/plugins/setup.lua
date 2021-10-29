@@ -1,4 +1,4 @@
--- Set Colorschme
+-- Set Colorscheme
 -- require('nightfox').load('nordfox')
 vim.cmd 'colorscheme hybrid'
 
@@ -8,6 +8,8 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local on_attach = function(client, bufnr)
+  require("lsp_signature").on_attach()
+
   nnoremap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
   nnoremap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
   nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
@@ -81,3 +83,12 @@ metals_config.settings = {
 
 metals_config.capabilities = capabilities
 metals_config.on_attach = on_attach
+
+-- Editor UI
+require('gitsigns').setup()
+require('nvim-autopairs').setup{}
+require('nvim-treesitter.configs').setup {
+  autotag = {
+    enable = true,
+  }
+}

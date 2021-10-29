@@ -1,11 +1,9 @@
-local execute = vim.api.nvim_command
 local fn = vim.fn
 
 local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
-  execute 'packadd packer.nvim'
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
 vim.cmd [[packadd packer.nvim]]
@@ -14,48 +12,64 @@ vim.cmd [[autocmd BufWritePost plugins.lua PackerCompile]]
 return require('packer').startup(function (use)
   use {'wbthomason/packer.nvim', opt=true }
 
-  -- LSP plugins
-  use 'neovim/nvim-lspconfig'
-  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-  use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-  use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-  use 'L3MON4D3/LuaSnip'
-  use 'glepnir/lspsaga.nvim'
-  use 'folke/lsp-colors.nvim'
-  use 'kyazdani42/nvim-web-devicons'
-  use 'folke/lsp-trouble.nvim'
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-
-  use 'W0ng/vim-hybrid'
-  use 'tmux-plugins/vim-tmux'
+  -- Utility
+  use "b0o/mapx.nvim" -- mapping DSL library
   use 'christoomey/vim-tmux-navigator'
-  use { 'junegunn/fzf', run = function() fn['fzf#install']() end }
-  use 'junegunn/fzf.vim'
-  use 'airblade/vim-gitgutter'
-  use 'tveskag/nvim-blame-line'
+  use 'tpope/vim-eunuch'
+
+  -- Treesitter
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
+  use 'McAuleyPenney/tidy.nvim'
+  use 'windwp/nvim-ts-autotag'
+  use 'windwp/nvim-autopairs'
+
+  -- Coloscheme
+  use 'EdenEast/nightfox.nvim'
+  use 'W0ng/vim-hybrid'
+
+  -- Editor
+  use {
+    'ibhagwan/fzf-lua',
+    requires = {
+      'vijaymarupudi/nvim-fzf',
+      'kyazdani42/nvim-web-devicons'
+    }
+  }
   use 'tpope/vim-commentary'
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
   use 'tpope/vim-unimpaired'
-  use 'tpope/vim-eunuch'
-  use 'scalameta/nvim-metals'
-  use 'windwp/nvim-autopairs'
-  use 'GEverding/vim-hocon'
-  use 'folke/tokyonight.nvim'
-  use 'keith/swift.vim'
-  use 'glepnir/zephyr-nvim'
-  use 'shaunsingh/nord.nvim'
-  use 'kyazdani42/nvim-tree.lua'
-  use 'nvim-lua/popup.nvim'
-  use 'nvim-lua/plenary.nvim'
-  use 'nvim-telescope/telescope.nvim'
-  -- use 'https://gitlab.com/__tpb/monokaipro.nvim'
-  use 'projekt0n/github-nvim-theme'
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    }
+  }
 
-  require('plugins.fzf')
-  -- require('plugins.metals')
-  require('plugins.lsp')
-  require('nvim-autopairs').setup({
-    local_break_line_filetype = { 'scala' }
-  })
+
+  -- LSP
+  use 'neovim/nvim-lspconfig'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/nvim-cmp'
+  use {
+    "scalameta/nvim-metals",
+    requires = { "nvim-lua/plenary.nvim" }
+  }
+  use "ray-x/lsp_signature.nvim"
+  use 'kosayoda/nvim-lightbulb'
+
+  -- Language Support
+  use 'tmux-plugins/vim-tmux'
+
+  --[[ plugins to try
+    use "folke/which-key.nvim"  -- use mapx integration
+  --]]
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)

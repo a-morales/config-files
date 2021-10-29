@@ -1,49 +1,44 @@
-Option.g({
-  syntax = "on",
-  encoding = "UTF-8",
-  shiftwidth = 2,
-  tabstop = 2,
-  softtabstop = 2,
-  hidden = true,
-  joinspaces = false,
-  scrolloff = 4,
-  shiftround = true,
-  sidescrolloff = 8,
-  splitbelow = true,
-  splitright = true,
-  termguicolors = true,
-  background = 'dark',
-  wildmode = 'list:longest',
-  clipboard = 'unnamedplus',
-  smarttab = true,
-  backup = false,
-  writebackup = false,
-  listchars = "tab:→ ,trail:·,extends:❯,precedes:❮",
-  expandtab = true,
-  smartindent = true,
-  autoindent = true,
-  swapfile = false,
-  list = true,
-  number = true,
-  wrap = false,
-  cursorline = true,
-})
+local set = vim.opt
 
-Option.b({
-  expandtab = true,
-  smartindent = true,
-  autoindent = true,
-  swapfile = false,
-  shiftwidth = 2,
-  tabstop = 2,
-  softtabstop = 2,
-})
+set.syntax = 'on'
+set.encoding = 'UTF-8'
+set.shiftwidth = 2
+set.tabstop = 2
+set.softtabstop = 2
+set.hidden = true
+set.joinspaces = false
+set.scrolloff = 4
+set.shiftround = true
+set.sidescrolloff = 8
+set.splitbelow = true
+set.splitright = true
+set.termguicolors = true
+set.background = 'dark'
+set.wildmode = 'list:longest'
+set.clipboard = 'unnamedplus'
+set.smarttab = true
+set.backup = false
+set.writebackup = false
+set.listchars = "tab:→ ,trail:·,extends:❯,precedes:❮"
+set.expandtab = true
+set.smartindent = true
+set.autoindent = true
+set.swapfile = false
+set.list = true
+set.number = true
+set.wrap = false
+set.cursorline = true
+set.expandtab = true
+set.smartindent = true
+set.autoindent = true
+set.swapfile = false
+set.shiftwidth = 2
+set.tabstop = 2
+set.softtabstop = 2
+set.list = true
+set.number = true
+set.wrap = false
+set.cursorline = true
 
-Option.w({
-  list = true,
-  number = true,
-  wrap = false,
-  cursorline = true,
-})
-
-
+vim.opt_global.completeopt = 'menu,menuone,noselect'
+vim.opt_global.shortmess:remove("F"):append("c")
