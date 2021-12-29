@@ -1,6 +1,13 @@
 -- Set Colorscheme
--- require('nightfox').load('nordfox')
-vim.cmd 'colorscheme hybrid'
+vim.cmd[[colorscheme onenord]]
+
+require('onenord').setup({
+  italics = {
+    comments = true,
+    keywords = false,
+  }
+})
+
 
 -- LSP settings
 local lsp = require('lspconfig')
@@ -60,7 +67,7 @@ end
 
 -- Scala Metals
 
-vim.g['metals_server_version']='0.10.8'
+vim.g['metals_server_version']='0.10.9'
 
 vim.cmd([[autocmd!]])
 vim.cmd([[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]])
@@ -91,4 +98,13 @@ require('nvim-treesitter.configs').setup {
   autotag = {
     enable = true,
   }
+}
+
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    show_current_context = true,
+}
+
+require('hop').setup {
+  keys = 'etovxqpdygfblzhckisuran'
 }

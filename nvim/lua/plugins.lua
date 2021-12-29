@@ -27,8 +27,7 @@ return require('packer').startup(function (use)
   use 'windwp/nvim-autopairs'
 
   -- Coloscheme
-  use 'EdenEast/nightfox.nvim'
-  use 'W0ng/vim-hybrid'
+  use 'rmehri01/onenord.nvim'
 
   -- Editor
   use {
@@ -48,7 +47,11 @@ return require('packer').startup(function (use)
       'nvim-lua/plenary.nvim'
     }
   }
-
+  use 'lukas-reineke/indent-blankline.nvim'
+  use {
+    'phaazon/hop.nvim',
+    branch = 'v1',
+  }
 
   -- LSP
   use 'neovim/nvim-lspconfig'
@@ -66,7 +69,16 @@ return require('packer').startup(function (use)
   use 'tmux-plugins/vim-tmux'
 
   --[[ plugins to try
-    use "folke/which-key.nvim"  -- use mapx integration
+    use 'folke/which-key.nvim'  -- use mapx integration
+    use 'RishabhRD/nvim-lsputils'
+    use 'folke/trouble.nvim'
+    use 'rcarriga/nvim-notify'
+    use 'sunjon/shade.nvim'
+    use 'folke/twilight.nvim'
+    use({
+      'mrjones2014/dash.nvim',
+      run = 'make install',
+    })
   --]]
 
   if packer_bootstrap then
