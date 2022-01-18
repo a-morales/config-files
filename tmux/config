@@ -5,9 +5,8 @@ bind v send-prefix
 #default settings
 set -g default-command $SHELL
 
-set -g default-terminal 'xterm'
-# set -g default-terminal 'screen-256color'
-# set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
+set -g default-terminal 'tmux-256color'
+set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
 
 #monitor any activity that happens in other windows and screens
   setw -g monitor-activity on
@@ -41,7 +40,7 @@ set -g default-terminal 'xterm'
   bind-key l switch-client -l
 
 #reload config file
-  bind-key r source-file ~/.config/tmux.conf\;\
+  bind-key r source-file ~/.config/tmux/config\;\
   display "Config Reloaded."
 
 #clear the screen
@@ -59,7 +58,7 @@ set -g default-terminal 'xterm'
 
 #status bar options
 
-  set -g @seperators 'dithered'
+  set -g @seperators 'powerline'
 
   set -g status-left "#S:#I.#P #{prefix_highlight}"
   set -g status-right "#H"

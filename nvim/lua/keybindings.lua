@@ -10,6 +10,7 @@ nmap('<leader>mk', ":!mkdir <C-R>=fnameescape(expand(\'%:h\')).'/'<CR>")
 nmap('<leader>r', ':windo redraw!<CR>')
 nmap('<leader>R', ':luafile $MYVIMRC<CR>')
 nmap('<C-f>', ":HopChar2<CR>")
+nmap('<leader>s', ':SidebarNvimToggle<CR>')
 nnoremap('<leader><space>', ':noh<CR>')
 
 nmap('<C-p>', ':FzfLua files<CR>')

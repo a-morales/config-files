@@ -19,6 +19,7 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source ~/.config/bin/fzf-marks/fzf-marks.plugin.zsh
+source ~/.config/broot/launcher/bash/br
 # source ~/.config/bin/zsh-histdb/sqlite-history.zsh
 
 
@@ -34,4 +35,3 @@ fi
 
 export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 # zprof
-

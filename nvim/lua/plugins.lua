@@ -52,18 +52,22 @@ return require('packer').startup(function (use)
     'phaazon/hop.nvim',
     branch = 'v1',
   }
+  use 'sidebar-nvim/sidebar.nvim'
 
   -- LSP
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/vim-vsnip'
   use {
     "scalameta/nvim-metals",
     requires = { "nvim-lua/plenary.nvim" }
   }
   use "ray-x/lsp_signature.nvim"
   use 'kosayoda/nvim-lightbulb'
+  use 'mfussenegger/nvim-dap'
 
   -- Language Support
   use 'tmux-plugins/vim-tmux'
@@ -79,6 +83,8 @@ return require('packer').startup(function (use)
       'mrjones2014/dash.nvim',
       run = 'make install',
     })
+    use 'tamago324/lir.nvim'
+    use 'LinArcX/telescope-command-palette.nvim'
   --]]
 
   if packer_bootstrap then

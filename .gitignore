@@ -8,4 +8,6 @@ nvim/autoload
 nvim/plugged
 nvim/plugin
 jgit/
+broot/
 .secrets
+configstore/

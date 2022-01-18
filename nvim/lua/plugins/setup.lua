@@ -30,6 +30,11 @@ end
 
 local cmp = require('cmp')
 cmp.setup {
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+    end
+  },
   mapping = {
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<CR>'] = cmp.mapping.confirm {
@@ -67,8 +72,6 @@ end
 
 -- Scala Metals
 
-vim.g['metals_server_version']='0.10.9'
-
 vim.cmd([[autocmd!]])
 vim.cmd([[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]])
 vim.cmd([[autocmd FileType scala,sbt lua require("metals").initialize_or_attach(metals_config)]])
@@ -89,7 +92,10 @@ metals_config.settings = {
 }
 
 metals_config.capabilities = capabilities
-metals_config.on_attach = on_attach
+metals_config.on_attach = function(client, bufnr)
+  require("metals").setup_dap()
+  on_attach(client, bufnr)
+end
 
 -- Editor UI
 require('gitsigns').setup()
@@ -108,3 +114,43 @@ require("indent_blankline").setup {
 require('hop').setup {
   keys = 'etovxqpdygfblzhckisuran'
 }
+
+local dap = require("dap")
+
+dap.configurations.scala = {
+  {
+    type = "scala",
+    request = "launch",
+    name = "Run",
+    metals = {
+      runType = "run",
+    },
+  },
+  {
+    type = "scala",
+    request = "launch",
+    name = "Test File",
+    metals = {
+      runType = "testFile",
+    },
+  },
+  {
+    type = "scala",
+    request = "launch",
+    name = "Test Target",
+    metals = {
+      runType = "testTarget",
+    },
+  },
+  {
+    type = "scala",
+    request = "launch",
+    name = "Run or Test Target",
+    metals = {
+      runType = "runOrTestFile",
+    },
+  },
+}
+
+-- sidebar
+require("sidebar-nvim").setup()

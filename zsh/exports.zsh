@@ -14,8 +14,8 @@ export FZF_DEFAULT_COMMAND='rg --files'
 
 export GOPATH="$HOME/Code/go"
 
-export JAVA_HOME=$(cs java-home)
-export PATH="$HOME/.config/bin:$PATH:$HOME/Library/Application Support/Coursier/bin:$HOME/.bin/bin:$JAVA_HOME/bin"
+# export JAVA_HOME=$(cs java-home)
+export PATH="$HOME/.config/bin:$PATH:$HOME/Library/Application Support/Coursier/bin:$HOME/.bin/bin:$JAVA_HOME/bin:./node_modules/.bin"
 
 # export AWS_REGION=us-east-1
 
