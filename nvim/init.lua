@@ -1,4 +1,4 @@
-require('plugins')
-require('plugins.setup')
-require('settings')
-require('keybindings')
+require("settings")
+require("keymaps")
+require("autocommands")
+require("lazy-init")
