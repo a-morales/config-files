@@ -35,3 +35,7 @@ fi
 
 export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 # zprof
+
+if which zoxide > /dev/null; then
+  eval "$(zoxide init --cmd cd zsh)"
+fi

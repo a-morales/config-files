@@ -5,10 +5,7 @@ return {
   priority = 1000,
   config = function()
     require("onenord").setup({
-      italics = {
-        comments = true,
-        keywords = false,
-      },
+      fade_nc = true,
     })
     vim.cmd.colorscheme("onenord")
   end,

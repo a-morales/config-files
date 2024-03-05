@@ -35,3 +35,4 @@ vim.opt.smartcase = true
 vim.opt.inccommand = "split"
 vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
+vim.opt.conceallevel = 1

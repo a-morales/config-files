@@ -1,6 +1,6 @@
 add_newline = false
 
-format= "$directory$git_branch$git_commit$git_status$time$line_break$character"
+format= "$directory$git_branch$git_commit$git_status$scala$line_break$time$character"
 
 [character]
 success_symbol = "[λ](bold green)"
@@ -11,6 +11,7 @@ disabled = false
 
 [scala]
 format = "via [${symbol}]($style)"
+detect_files = ['.scalaenv', '.sbtenv', 'build.sbt', 'build.sc', '.mill-version']
 symbol = ""
 
 [java]
