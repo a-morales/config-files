@@ -1,10 +1,11 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-vim.keymap.set("n", "<Leader>ew", ":e <C-R>=fnameescape(expand('%:h')).'/'<CR>")
-vim.keymap.set("n", "<Leader>es", ":sp <C-R>=fnameescape(expand('%:h')).'/'<CR>")
-vim.keymap.set("n", "<Leader>ev", ":vsp <C-R>=fnameescape(expand('%:h')).'/'<CR>")
-vim.keymap.set("n", "<Leader>et", ":tabe <C-R>=fnameescape(expand('%:h')).'/'<CR>")
-vim.keymap.set("n", "<leader>mk", ":!mkdir <C-R>=fnameescape(expand('%:h')).'/'<CR>")
+-- vim.keymap.set("n", "<Leader>ew", ":e <C-R>=fnameescape(expand('%:h')).'/'<CR>")
+-- vim.keymap.set("n", "<Leader>es", ":sp <C-R>=fnameescape(expand('%:h')).'/'<CR>")
+-- vim.keymap.set("n", "<Leader>ev", ":vsp <C-R>=fnameescape(expand('%:h')).'/'<CR>")
+-- vim.keymap.set("n", "<Leader>et", ":tabe <C-R>=fnameescape(expand('%:h')).'/'<CR>")
+-- vim.keymap.set("n", "<leader>mk", ":!mkdir <C-R>=fnameescape(expand('%:h')).'/'<CR>")
 vim.keymap.set("n", "<leader>r", ":windo redraw!<CR>")
 vim.keymap.set("n", "<leader><space>", "<cmd>nohlsearch<CR>", { noremap = true })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
