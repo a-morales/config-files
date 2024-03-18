@@ -7,6 +7,7 @@ return {
   opts = function()
     local metals_config = require("metals").bare_config()
     metals_config.on_attach = function(client, bufnr)
+      print("loading up metals")
       -- your on_attach function
     end
 
