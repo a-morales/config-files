@@ -1,3 +1,6 @@
+.DS_Store
+*.log
+*old/
 bin/
 oni2/
 iterm2/

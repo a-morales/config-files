@@ -39,3 +39,12 @@ path() {
            sub(\"/local\", \"$fg_no_bold[yellow]/local$reset_color\"); \
            print }"
 }
+
+yy() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}

@@ -4,8 +4,22 @@ return {
   config = function()
     local config = require("nvim-treesitter.configs")
     config.setup({
-      ensure_installed = { "bash", "c", "html", "lua", "markdown", "vim", "vimdoc", "rust", "scala", "markdown_inline" },
-      highlight = { enable = true },
+      ensure_installed = {
+        "bash",
+        "c",
+        "html",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "rust",
+        "scala",
+        "vim",
+        "vimdoc",
+      },
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = { "markdown" },
+      },
       indent = { enable = true },
     })
   end,
