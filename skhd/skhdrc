@@ -2,7 +2,7 @@
 :: active  : yabai -m config active_window_border_color 0xddbdd322
 :: resize  : yabai -m config active_window_border_color 0x5f809da1
 
-# modes
+# modes 0x29 is ';'
 ctrl - 0x29                ;   active
 ctrl + cmd - 0x29          ;   resize
 
