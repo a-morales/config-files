@@ -14,10 +14,10 @@ config.inactive_pane_hsb = {
   brightness = 0.6,
 }
 config.window_padding = {
-  left = 0,
-  right = 0,
+  left = "0.5cell",
+  right = "0.5cell",
   top = "0.5cell",
-  bottom = 0,
+  bottom = "0.5cell",
 }
 config.enable_scroll_bar = true
 
@@ -45,6 +45,26 @@ config.keys = {
       wezterm.action.ClearScrollback("ScrollbackAndViewport"),
       wezterm.action.SendKey({ key = "L", mods = "CTRL" }),
     }),
+  },
+  {
+    key = "c",
+    mods = "LEADER",
+    action = wezterm.action.SpawnTab("CurrentPaneDomain"),
+  },
+  {
+    key = "z",
+    mods = "LEADER",
+    action = wezterm.action.TogglePaneZoomState,
+  },
+  {
+    key = "[",
+    mods = "LEADER",
+    action = wezterm.action.ActivateCopyMode,
+  },
+  {
+    key = "x",
+    mods = "LEADER",
+    action = wezterm.action.QuickSelect,
   },
 }
 

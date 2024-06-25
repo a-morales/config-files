@@ -1,0 +1,11 @@
+[core]
+# Use incremental resolution of project-wide references.
+# This is much more efficient but is currently experimental
+incremental_references = true
+
+[completion]
+# The style of wiki links completion.
+# Other values include: 
+# * "file-stem" to complete using file name without an extension,
+# * "file-path-stem" same as above but using file path.
+wiki.style = "file-stem"

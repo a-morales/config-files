@@ -57,10 +57,11 @@ return {
       capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
       local servers = {
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         tsserver = {},
         marksman = {},
         fsautocomplete = {},
+        gleam = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -78,7 +79,6 @@ return {
       vim.list_extend(ensure_installed, {
         "stylua", -- Used to format lua code
       })
-      require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
       require("mason-lspconfig").setup({
         handlers = {
@@ -92,6 +92,8 @@ return {
           end,
         },
       })
+
+      require("lspconfig").gleam.setup({})
     end,
   },
 }

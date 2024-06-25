@@ -1,6 +1,6 @@
-:: default : yabai -m config active_window_border_color 0xddd5c4a1
-:: active  : yabai -m config active_window_border_color 0xddbdd322
-:: resize  : yabai -m config active_window_border_color 0x5f809da1
+:: default : borders active_color=0xddd5c4a1
+:: active  : borders active_color=0xddbdd322
+:: resize  : borders active_color=0x5f809da1
 
 # modes 0x29 is ';'
 ctrl - 0x29                ;   active
@@ -36,7 +36,6 @@ active < ctrl - s          :   yabai -m space --rotate 180
 
 active < ctrl - 1          :   yabai -m config layout managed
 active < ctrl - 2          :   yabai -m config layout bsp
-# active < ctrl - 4          :   chunkc tiling::desktop --deserialize ~/.config/chunkwm/layouts/3-col
 #
 active < ctrl - t          :   yabai -m window --toggle split
 
@@ -53,7 +52,3 @@ resize < ctrl - l          :   yabai -m window --resize right:-150:0
 resize < f                 :   yabai -m window --toggle zoom-parent
 resize < shift - f         :   yabai -m window --toggle zoom-fullscreen
 resize < c                 :   yabai -m window --toggle float; yabai -m window --grid 1:9:1:0:7:1
-
-# # system key bindings
-# # Disable border for screenshots
-# cmd + shift - 4 ->         : chunkc border::clear

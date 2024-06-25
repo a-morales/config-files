@@ -15,6 +15,7 @@ return {
         "scala",
         "vim",
         "vimdoc",
+        "gleam",
       },
       highlight = {
         enable = true,
