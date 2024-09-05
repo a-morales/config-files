@@ -1,9 +1,9 @@
 local colors = require("helpers.colors")
 
 Sbar.bar({
-	topmost = "window",
-	height = 32,
-	color = colors.transparent,
-	padding_right = 6,
-	padding_left = 6,
+  topmost = "window",
+  height = 32,
+  color = colors.bar.bg,
+  padding_right = 6,
+  padding_left = 6,
 })

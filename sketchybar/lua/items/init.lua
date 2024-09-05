@@ -1,5 +1,5 @@
 require("items.spaces")
 
-Sbar.add("alias", "Control Center,BentoBox", {
-  position = "right",
-})
+require("items.calendar")
+require("items.control_center")
+require("items.sound_source")

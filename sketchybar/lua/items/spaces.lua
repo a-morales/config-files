@@ -1,5 +1,5 @@
 local colors = require("helpers.colors")
-local icons = require("helpers.icons")
+-- local icons = require("helpers.icons")
 
 Sbar.add("event", "aerospace_workspace_change")
 
@@ -12,7 +12,6 @@ Sbar.exec("aerospace list-workspaces --all", function(result)
   Sbar.add("item", { width = 5 })
 
   for _, workspace in ipairs(workspaces) do
-    print("space." .. workspace)
     local space = Sbar.add("item", "space." .. workspace, {
       icon = {
         string = workspace,
@@ -51,9 +50,6 @@ Sbar.exec("aerospace list-workspaces --all", function(result)
   })
 
   bracket:subscribe({ "aerospace_workspace_change" }, function(env)
-    for i, v in pairs(env) do
-      print(i, v)
-    end
     for name, s in pairs(spaces) do
       s:set({ background = { drawing = name == env["FOCUSED_WORKSPACE"] } })
     end
