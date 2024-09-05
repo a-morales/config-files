@@ -32,5 +32,4 @@ alias gsy='git-town sync'
 alias gco='git commit'
 alias gitp='git clone $(pbpaste)'
 
-alias ag='ag --path-to-ignore ~/.ignore'
 alias rg='rg -S'

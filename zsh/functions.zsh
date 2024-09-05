@@ -1,8 +1,3 @@
-# fd() {
-#   local dir
-#   dir=$(find . -path '*/\.*' -prune -o -type d -print 2> /dev/null |  fzf-tmux +m -q "$1") && cd "$dir"
-# }
-
 cdf() {
    local file
    file=$(fzf-tmux +m -q "$1") && cd "$(dirname "$file")"

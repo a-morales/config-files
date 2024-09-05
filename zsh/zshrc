@@ -19,9 +19,6 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source ~/.config/bin/fzf-marks/fzf-marks.plugin.zsh
-source ~/.config/broot/launcher/bash/br
-# source ~/.config/bin/zsh-histdb/sqlite-history.zsh
-
 
 HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
 autoload -Uz add-zsh-hook
