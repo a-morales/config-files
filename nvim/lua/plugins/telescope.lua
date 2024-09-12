@@ -29,6 +29,7 @@ return {
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<C-space>", builtin.buffers, {})
     vim.keymap.set("n", "<C-p>", builtin.find_files, {})
+    vim.keymap.set("n", "<leader>sc", builtin.commands, {})
     vim.keymap.set("n", "<leader>sg", builtin.live_grep, {})
     vim.keymap.set("n", "<leader>sd", builtin.diagnostics, {})
     vim.keymap.set("n", "<leader>sh", builtin.help_tags, {})

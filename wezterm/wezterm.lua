@@ -39,6 +39,11 @@ config.keys = {
     action = wezterm.action.SendKey({ key = "o", mods = "CTRL" }),
   },
   {
+    key = "j",
+    mods = "LEADER|CTRL",
+    action = wezterm.action.SendKey({ key = "j", mods = "CTRL" }),
+  },
+  {
     key = "k",
     mods = "LEADER",
     action = wezterm.action.Multiple({
@@ -65,6 +70,11 @@ config.keys = {
     key = "x",
     mods = "LEADER",
     action = wezterm.action.QuickSelect,
+  },
+  {
+    key = "r",
+    mods = "LEADER",
+    action = wezterm.action.RotatePanes("Clockwise"),
   },
 }
 

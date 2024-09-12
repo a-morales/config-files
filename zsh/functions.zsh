@@ -1,15 +1,11 @@
-cdf() {
-   local file
-   file=$(fzf-tmux +m -q "$1") && cd "$(dirname "$file")"
-}
-
-_fzf_compgen_path() {
-  ag -p ~/.ignore --hidden --follow -g "$1"
-}
+# cdf() {
+#    local file
+#    file=$(fzf-tmux +m -q "$1") && cd "$(dirname "$file")"
+# }
 
 vif() {
   local file
-  file=$(fzf-tmux --query="$1" --select-1 --exit-0)
+  file=$(fzf --query="$1" --select-1 --exit-0)
   [ -n "$file" ] && ${EDITOR:-nvim} "$file"
 }
 

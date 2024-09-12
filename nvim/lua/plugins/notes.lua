@@ -11,9 +11,19 @@ return {
   {
     "tadmccorkle/markdown.nvim",
     ft = "markdown",
-    enabled = true,
+    enabled = false,
     config = function()
       require("markdown").setup()
     end,
+  },
+  {
+    "OXY2DEV/markview.nvim",
+    ft = "markdown",
+    dependencies = {
+      -- You may not need this if you don't lazy load
+      -- Or if the parsers are in your $RUNTIMEPATH
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
   },
 }

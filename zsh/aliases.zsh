@@ -33,3 +33,4 @@ alias gco='git commit'
 alias gitp='git clone $(pbpaste)'
 
 alias rg='rg -S'
+alias tt='taskwarrior-tui'
