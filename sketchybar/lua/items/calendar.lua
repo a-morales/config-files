@@ -2,6 +2,7 @@ local colors = require("helpers.colors")
 
 local cal = Sbar.add("item", {
   position = "right",
+  update_freq = 30,
   icon = {
     color = colors.white,
     align = "left",
