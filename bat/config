@@ -1,0 +1,5 @@
+--theme="Nord"
+--style="changes"
+--italic-text=always
+--map-syntax="*.sbt:Scala"
+--map-syntax="*.sc:Scala"
