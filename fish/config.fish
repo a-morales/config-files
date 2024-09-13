@@ -9,5 +9,14 @@ fish_add_path -gmP "/opt/homebrew/bin" "/opt/homebrew/sbin";
 if test -n "$MANPATH[1]"; set -gx MANPATH '' $MANPATH; end;
 if not contains "/opt/homebrew/share/info" $INFOPATH; set -gx INFOPATH "/opt/homebrew/share/info" $INFOPATH; end;
 
-starship init fish | source
+if type -q starship
+    starship init fish | source
+end
 
+if type -q nvim
+    alias vim="nvim"
+end
+
+if type -q scmpuff
+    scmpuff init --shell=fish | source
+end
