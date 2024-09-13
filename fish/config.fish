@@ -2,21 +2,10 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-set -gx HOMEBREW_PREFIX "/opt/homebrew";
-set -gx HOMEBREW_CELLAR "/opt/homebrew/Cellar";
-set -gx HOMEBREW_REPOSITORY "/opt/homebrew";
-fish_add_path -gmP "/opt/homebrew/bin" "/opt/homebrew/sbin";
-if test -n "$MANPATH[1]"; set -gx MANPATH '' $MANPATH; end;
-if not contains "/opt/homebrew/share/info" $INFOPATH; set -gx INFOPATH "/opt/homebrew/share/info" $INFOPATH; end;
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-if type -q starship
-    starship init fish | source
-end
+set -U fish_greeting 
+set -U fist_key_bindings fish_vi_key_bindings
 
-if type -q nvim
-    alias vim="nvim"
-end
-
-if type -q scmpuff
-    scmpuff init --shell=fish | source
-end
+set -Ux FZF_DEFAULT_OPTS '--color=bg+:#353b49,bg:#2e3440,border:#88c0d0,spinner:#b988b0,hl:#6c7a96,fg:#c8d0e0,header:#6c7a96,info:#b988b0,pointer:#b988b0,marker:#b988b0,fg+:#c8d0e0,prompt:#b988b0,hl+:#b988b0 --cycle --layout=reverse --border --height=80% --preview-window=wrap --marker="*"'
+set -Ux LS_COLORS (vivid generate nord)
