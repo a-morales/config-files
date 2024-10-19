@@ -6,22 +6,12 @@ local cal = Sbar.add("item", {
   icon = {
     color = colors.white,
     align = "left",
-    padding_left = 10,
     padding_right = 5,
   },
   label = {
     color = colors.white,
     align = "right",
     padding_right = 10,
-  },
-  background = {
-    drawing = true,
-    color = colors.bg1,
-    border_width = 1,
-    border_color = colors.red,
-    corner_radius = 15,
-    padding_left = 5,
-    padding_right = 5,
   },
 })
 

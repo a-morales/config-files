@@ -11,7 +11,7 @@ return {
   {
     "tadmccorkle/markdown.nvim",
     ft = "markdown",
-    enabled = false,
+    -- enabled = false,
     config = function()
       require("markdown").setup()
     end,
@@ -25,5 +25,19 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
+    config = function()
+      require("markview").setup({
+        modes = { "n", "c" },
+        hybrid_modes = { "n" },
+
+        callbacks = {
+          on_enable = function(_, win)
+            vim.wo[win].conceallevel = 2
+            -- This will prevent Tree-sitter concealment being disabled on the cmdline mode
+            vim.wo[win].concealcursor = "c"
+          end,
+        },
+      })
+    end,
   },
 }

@@ -14,3 +14,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*",
   command = 'silent! normal! g`"zv',
 })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  desc = "Set filetype of mdx files to markdown",
+  pattern = "*.mdx",
+  group = group,
+  command = "set filetype=markdown",
+})

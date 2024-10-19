@@ -62,6 +62,7 @@ return {
         marksman = {},
         fsautocomplete = {},
         gleam = {},
+        astro = {},
         lua_ls = {
           settings = {
             Lua = {

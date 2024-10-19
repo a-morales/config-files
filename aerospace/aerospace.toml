@@ -1,7 +1,6 @@
 start-at-login = true
 after-startup-command = [
   'exec-and-forget borders',
-  'exec-and-forget sketchybar'
 ]
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
@@ -34,10 +33,7 @@ inner.horizontal = 8
 inner.vertical =   8
 outer.left =       6
 outer.bottom =     6
-outer.top =        [
-  { monitor."LG ULTRAWIDE" = 36},
-  6
-]
+outer.top =        6
 outer.right =      6
 
 [[on-window-detected]]
