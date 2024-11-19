@@ -13,6 +13,7 @@ set -Ux LS_COLORS (vivid generate nord)
 set -Ux HOMEBREW_NO_AUTO_UPDATE true
 set -Ux MANPAGER 'nvim +Man!'
 set -gx PATH "./node_modules/.bin" $PATH
+set -Ux KALEIDOSCOPE_DIR '${HOME}/Code/playground/Kaleidoscope'
 
 alias sz='source ~/.config/fish/config.fish'
 alias rd='cd (git rev-parse --show-toplevel)'
@@ -28,5 +29,3 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 alias gha='git-town hack'
 alias gsy='git-town sync'
 alias gitp='git clone (pbpaste)'
-
-fish_vi_key_bindings
