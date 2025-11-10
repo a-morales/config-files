@@ -1,3 +1,0 @@
-return {
-  "chrisbra/unicode.vim",
-}
