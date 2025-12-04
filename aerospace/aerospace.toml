@@ -39,8 +39,8 @@ on-mode-changed = []
   ctrl-semicolon = ['mode active', 'exec-and-forget borders active_color=0xddbdd322']
   ctrl-cmd-semicolon = ['mode resize', 'exec-and-forget borders active_color=0x4f809da1']
 
-  ctrl-cmd-l = 'workspace --wrap-around next'
-  ctrl-cmd-h = 'workspace --wrap-around prev'
+  ctrl-cmd-l = "exec-and-forget aerospace list-workspaces --monitor focused --empty no | aerospace workspace --wrap-around next --stdin"
+  ctrl-cmd-h = "exec-and-forget aerospace list-workspaces --monitor focused --empty no | aerospace workspace --wrap-around prev --stdin"
 
 [mode.active.binding]
 

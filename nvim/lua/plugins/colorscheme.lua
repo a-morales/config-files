@@ -7,6 +7,9 @@ return {
     opts = {
       borders = true,
       fade_nc = true,
+      -- disable = {
+      --   background = true,
+      -- },
     },
   },
 
