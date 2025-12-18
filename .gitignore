@@ -9,9 +9,12 @@ yarn/
 secrets.zsh
 nvim/autoload
 nvim/plugged
-nvim/plugin
 jgit/
 broot/
 .secrets
 configstore/
 lnav/
+direnv/
+zed/
+gh/
+fish_variables

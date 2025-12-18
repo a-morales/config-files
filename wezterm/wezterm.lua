@@ -1,14 +1,14 @@
 local wezterm = require("wezterm")
 local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 local projects = require("projects")
-local segments = require("segments")
 
 local config = wezterm.config_builder()
 
 config.color_scheme = "OneNord"
 config.font = wezterm.font("Cartograph CF")
 config.font_size = 14
-config.hide_tab_bar_if_only_one_tab = false
+config.cell_width = 0.9
+config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
 config.window_decorations = "RESIZE"
 config.tab_max_width = 40
@@ -19,12 +19,12 @@ config.set_environment_variables = {
   PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
 }
 config.inactive_pane_hsb = {
-  saturation = 0.9,
+  saturation = 0.8,
   brightness = 0.6,
 }
 config.window_padding = {
-  left = "0.5cell",
-  right = "0.5cell",
+  left = 0,
+  right = 0,
   top = 0,
   bottom = 0,
 }
@@ -363,7 +363,9 @@ table.insert(config.hyperlink_rules, {
 })
 
 wezterm.on("update-status", function(window, pane)
-  local segs = segments.get_right_status_segments(window)
+  local segs = {
+    window:active_workspace(),
+  }
   local color_scheme = window:effective_config().resolved_palette
 
   -- wezterm.color.parse returns a Color object, which we can
@@ -399,12 +401,12 @@ wezterm.on("update-status", function(window, pane)
   end
   window:set_right_status(wezterm.format(elements))
 
-  -- Hide scrollbar if content fits in the scrollback, or if alternate screen is active
-  local overrides = window:get_config_overrides() or {}
-  local dimensions = pane:get_dimensions()
-  overrides.enable_scroll_bar = dimensions.scrollback_rows > dimensions.viewport_rows
-    and not pane:is_alt_screen_active()
-  window:set_config_overrides(overrides)
+  -- -- Hide scrollbar if content fits in the scrollback, or if alternate screen is active
+  -- local overrides = window:get_config_overrides() or {}
+  -- local dimensions = pane:get_dimensions()
+  -- overrides.enable_scroll_bar = dimensions.scrollback_rows > dimensions.viewport_rows
+  --   and not pane:is_alt_screen_active()
+  -- window:set_config_overrides(overrides)
 end)
 
 return config
