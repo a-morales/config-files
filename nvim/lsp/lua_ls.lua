@@ -19,6 +19,7 @@ return {
       },
       runtime = {
         version = "LuaJIT",
+        path = vim.split(package.path, ";"),
       },
       workspace = {
         checkThirdParty = false,

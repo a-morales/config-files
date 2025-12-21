@@ -1,7 +1,7 @@
-return {
-  "akinsho/bufferline.nvim",
-  event = "VeryLazy",
-  opts = {
+now_if_args(function()
+  pack_add("akinsho/bufferline.nvim")
+
+  require("bufferline").setup({
     options = {
       show_close_icon = false,
       show_buffer_close_icons = false,
@@ -17,11 +17,5 @@ return {
         return vim.trim(indicator)
       end,
     },
-  },
-  keys = {
-    -- Buffer navigation.
-    { "<leader>bp", "<cmd>BufferLinePick<cr>", desc = "Pick a buffer to open" },
-    { "<leader>bc", "<cmd>BufferLinePickClose<cr>", desc = "Select a buffer to close" },
-    { "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", desc = "Close other buffers" },
-  },
-}
+  })
+end)

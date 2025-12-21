@@ -1,5 +1,5 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
+if not status is-interactive
+    return 0
 end
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -7,8 +7,10 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 set -U fish_greeting 
 set -U fist_key_bindings fish_vi_key_bindings
 
-set -Ux EDITOR 'nvim'
-set -Ux FZF_DEFAULT_OPTS '--color=bg+:#353b49,bg:#2e3440,border:#88c0d0,spinner:#b988b0,hl:#6c7a96,fg:#c8d0e0,header:#6c7a96,info:#b988b0,pointer:#b988b0,marker:#b988b0,fg+:#c8d0e0,prompt:#b988b0,hl+:#b988b0 --cycle --layout=reverse --border --height=80% --preview-window=wrap --marker="*"'
+set -Ux EDITOR nvim
+set -Ux FZF_DEFAULT_OPTS '--color=bg+:#232A2E,bg:#2D353B,border:#7A8478,spinner:#DBBC7F,hl:#A7C080,fg:#D3C6AA,header:#7A8478,info:#83C092,pointer:#7FBBB3,marker:#DBBC7F,fg+:#D3C6AA,prompt:#E69875,hl+:#83C092 --cycle --layout=reverse --border --height=80% --preview-window=wrap --marker="*"'
+# nord theme
+# set -Ux FZF_DEFAULT_OPTS '--color=bg+:#353b49,bg:#2e3440,border:#88c0d0,spinner:#b988b0,hl:#6c7a96,fg:#c8d0e0,header:#6c7a96,info:#b988b0,pointer:#b988b0,marker:#b988b0,fg+:#c8d0e0,prompt:#b988b0,hl+:#b988b0 --cycle --layout=reverse --border --height=80% --preview-window=wrap --marker="*"'
 set -Ux LS_COLORS (vivid generate nord)
 set -Ux HOMEBREW_NO_AUTO_UPDATE true
 set -Ux MANPAGER 'nvim +Man!'

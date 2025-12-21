@@ -4,11 +4,11 @@ local projects = require("projects")
 
 local config = wezterm.config_builder()
 
-config.color_scheme = "OneNord"
+config.color_scheme = "Everforest Dark (Gogh)"
 config.font = wezterm.font("Cartograph CF")
 config.font_size = 14
 config.cell_width = 0.9
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false
 config.use_fancy_tab_bar = false
 config.window_decorations = "RESIZE"
 config.tab_max_width = 40
@@ -30,6 +30,19 @@ config.window_padding = {
 }
 config.enable_scroll_bar = true
 config.scrollback_lines = 10000
+config.colors = {
+  tab_bar = {
+    background = "#2D353B",
+    active_tab = {
+      bg_color = "#56635f",
+      fg_color = "#D3C6AA",
+    },
+    new_tab = {
+      bg_color = "#2D353B",
+      fg_color = "#D3C6AA",
+    },
+  },
+}
 
 config.leader = { key = "o", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
@@ -69,7 +82,7 @@ config.keys = {
   {
     key = "c",
     mods = "LEADER",
-    action = wezterm.action.SpawnTab("CurrentPaneDomain"),
+    action = wezterm.action.ResetTerminal,
   },
   {
     key = "z",
@@ -276,29 +289,6 @@ local icons = {
   ["lazygit"] = wezterm.nerdfonts.dev_github_alt,
 }
 
--- OLD ONE
--- wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
---   -- local working_dir = basename(tab.active_pane.current_working_dir.file_path)
---   -- wezterm.log_warn("working dir: " .. working_dir)
---   local process_name = basename(tab.active_pane.foreground_process_name)
---   local process_icon = ""
---
---   if icons[process_name] then
---     process_icon = " " .. icons[process_name] .. " "
---   end
---
---   local title_for_tab = tab_title(tab)
---
---   if tab.is_active then
---     local title = process_icon .. (tab.tab_index + 1) .. ": " .. title_for_tab .. " "
---     return title
---   else
---     local content = icons[process_name] or process_name
---     local title = (tab.tab_index + 1) .. ": " .. content .. " "
---     return title
---   end
--- end)
---
 wezterm.on("format-tab-title", function(tab, tabs, _, econfig, _, max_width)
   local color_scheme = econfig.resolved_palette
   local total_tabs = #tabs > 0 and #tabs or 1
@@ -307,8 +297,9 @@ wezterm.on("format-tab-title", function(tab, tabs, _, econfig, _, max_width)
 
   -- Build a gradient across the number of tabs
   local base_bg = wezterm.color.parse(color_scheme.background)
-  local gradient_to, gradient_from = base_bg, base_bg
-  gradient_to = gradient_from:lighten(0.15)
+  local bg5 = "#56635f"
+  local gradient_to, gradient_from = bg5, base_bg
+  -- gradient_to = gradient_from:lighten(0.15)
   local gradient = wezterm.color.gradient({
     orientation = "Horizontal",
     colors = { gradient_to, gradient_from },
@@ -335,8 +326,8 @@ wezterm.on("format-tab-title", function(tab, tabs, _, econfig, _, max_width)
   local fg_color, raw_title = get_title(tab, foreground)
 
   if tab.is_active then
-    tab_background = color_scheme.ansi[5]
-    fg_color = background
+    tab_background = "#7FBBB3"
+    fg_color = "#343F44"
   end
 
   -- Ensure that the titles fit in the available space,
@@ -363,50 +354,45 @@ table.insert(config.hyperlink_rules, {
 })
 
 wezterm.on("update-status", function(window, pane)
-  local segs = {
-    window:active_workspace(),
-  }
-  local color_scheme = window:effective_config().resolved_palette
-
-  -- wezterm.color.parse returns a Color object, which we can
-  -- lighten or darken (amongst other things).
-  local bg = wezterm.color.parse(color_scheme.background)
-  local fg = color_scheme.foreground
-
-  local gradient_to, gradient_from = bg, bg
-  gradient_to = gradient_from:lighten(0.15)
-  local gradient = wezterm.color.gradient(
-    {
-      orientation = "Horizontal",
-      colors = { gradient_from, gradient_to },
-    },
-    #segs -- as many colours as no. of segments
-  )
-
-  -- Build up the elements to send to wezterm.format
-  local elements = {}
-
-  for i, seg in ipairs(segs) do
-    local is_first = i == 1
-
-    if is_first then
-      table.insert(elements, { Background = { Color = bg } })
-    end
-    table.insert(elements, { Foreground = { Color = gradient[i] } })
-    table.insert(elements, { Text = "" })
-
-    table.insert(elements, { Foreground = { Color = fg } })
-    table.insert(elements, { Background = { Color = gradient[i] } })
-    table.insert(elements, { Text = " " .. seg .. " " })
-  end
-  window:set_right_status(wezterm.format(elements))
-
-  -- -- Hide scrollbar if content fits in the scrollback, or if alternate screen is active
-  -- local overrides = window:get_config_overrides() or {}
-  -- local dimensions = pane:get_dimensions()
-  -- overrides.enable_scroll_bar = dimensions.scrollback_rows > dimensions.viewport_rows
-  --   and not pane:is_alt_screen_active()
-  -- window:set_config_overrides(overrides)
+  --   local segs = {
+  --     window:active_workspace(),
+  --   }
+  --   local color_scheme = window:effective_config().resolved_palette
+  --
+  --   -- wezterm.color.parse returns a Color object, which we can
+  --   -- lighten or darken (amongst other things).
+  --   local bg = wezterm.color.parse(color_scheme.background)
+  --   local fg = color_scheme.foreground
+  --
+  --   local gradient_to, gradient_from = bg, bg
+  --   gradient_to = gradient_from:lighten(0.15)
+  --   local gradient = wezterm.color.gradient(
+  --     {
+  --       orientation = "Horizontal",
+  --       colors = { gradient_from, gradient_to },
+  --     },
+  --     #segs -- as many colours as no. of segments
+  --   )
+  --
+  --   -- Build up the elements to send to wezterm.format
+  --   local elements = {}
+  --
+  --   for i, seg in ipairs(segs) do
+  --     local is_first = i == 1
+  --
+  --     if is_first then
+  --       table.insert(elements, { Background = { Color = bg } })
+  --     end
+  --     table.insert(elements, { Foreground = { Color = gradient[i] } })
+  --     table.insert(elements, { Text = "" })
+  --
+  --     table.insert(elements, { Foreground = { Color = fg } })
+  --     table.insert(elements, { Background = { Color = gradient[i] } })
+  --     table.insert(elements, { Text = " " .. seg .. " " })
+  --   end
+  window:set_right_status(wezterm.format({
+    { Text = " " .. window:active_workspace() .. " " },
+  }))
 end)
 
 return config

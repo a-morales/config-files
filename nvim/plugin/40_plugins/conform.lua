@@ -1,6 +1,7 @@
-return {
-  "stevearc/conform.nvim",
-  opts = {
+later(function()
+  pack_add("stevearc/conform.nvim")
+
+  require("conform").setup({
     notify_on_error = false,
     notify_no_formatters = false,
     formatters_by_ft = {
@@ -16,8 +17,7 @@ return {
     formatters = {
       prettier = { require_cwd = true },
     },
-  },
-  init = function()
-    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-  end,
-}
+  })
+
+  vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+end)
