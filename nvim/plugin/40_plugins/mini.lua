@@ -1,5 +1,15 @@
 local icons = require("icons")
 
+now(function()
+  require("mini.statusline").setup()
+  require("mini.icons").setup()
+
+  MiniIcons.mock_nvim_web_devicons()
+
+  local miniStarter = require("mini.starter")
+  miniStarter.setup()
+end)
+
 later(function()
   require("mini.cursorword").setup()
   require("mini.bracketed").setup()
@@ -58,7 +68,7 @@ later(function()
   miniClue.setup({
     window = {
       config = {
-        anchor = "SW",
+        anchor = "SE",
         row = "auto",
         col = "auto",
       },
@@ -97,14 +107,4 @@ later(function()
       { mode = "x", keys = "z" },
     },
   })
-end)
-
-now(function()
-  require("mini.icons").setup()
-
-  MiniIcons.mock_nvim_web_devicons()
-  require("mini.statusline").setup()
-
-  local miniStarter = require("mini.starter")
-  miniStarter.setup()
 end)
