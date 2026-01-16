@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("FileType", {
   group = create_group("close_with_q"),
   desc = "Close with <q>",
-  pattern = { "git", "help", "man", "qf", "scratch", "tvp" },
+  pattern = { "git", "help", "man", "qf", "scratch", "tvp", "dap-view", "dap-repl" },
   callback = function(args)
     if args.match ~= "help" or not vim.bo[args.buf].modifiable then
       vim.keymap.set("n", "q", "<cmd>quit<cr>", { buffer = args.buf })

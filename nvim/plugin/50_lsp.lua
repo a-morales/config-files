@@ -1,7 +1,5 @@
 local diagnostic_icons = require("icons").diagnostics
 
-local M = {}
-
 -- Disable inlay hints initially (and enable if needed with my ToggleInlayHints command).
 vim.g.inlay_hints = false
 
@@ -34,17 +32,13 @@ local function on_attach(client, bufnr)
     vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
   end, "Next error")
 
-  if client:supports_method("textDocument/codeAction") then
-    require("lightbulb").attach_lightbulb(bufnr, client)
-  end
-
   -- Don't check for the capability here to allow dynamic registration of the request.
   -- vim.lsp.document_color.enable(true, bufnr)
-  if client:supports_method("textDocument/documentColor") then
-    keymap("grc", function()
-      vim.lsp.document_color.color_presentation()
-    end, "vim.lsp.document_color.color_presentation()", { "n", "x" })
-  end
+  -- if client:supports_method("textDocument/documentColor") then
+  --   keymap("grc", function()
+  --     vim.lsp.document_color.color_presentation()
+  --   end, "vim.lsp.document_color.color_presentation()", { "n", "x" })
+  -- end
 
   if client:supports_method("textDocument/references") then
     keymap("grr", "<cmd>FzfLua lsp_references<cr>", "vim.lsp.buf.references()")
@@ -229,31 +223,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    -- I don't think this can happen but it's a wild world out there.
-    if not client then
-      return
+    if client then
+      on_attach(client, args.buf)
     end
-
-    on_attach(client, args.buf)
   end,
 })
 
--- Set up LSP servers.
-vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-  once = true,
-  callback = function()
-    -- Extend neovim's client capabilities with the completion ones.
-    vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
-
-    local servers = vim
-      .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
-      :map(function(file)
-        return vim.fn.fnamemodify(file, ":t:r")
-      end)
-      :totable()
-    vim.lsp.enable(servers)
-  end,
-})
+vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
 
 -- HACK: Override buf_request to ignore notifications from LSP servers that don't implement a method.
 local buf_request = vim.lsp.buf_request
@@ -261,5 +237,3 @@ local buf_request = vim.lsp.buf_request
 vim.lsp.buf_request = function(bufnr, method, params, handler)
   return buf_request(bufnr, method, params, handler, function() end)
 end
-
-return M

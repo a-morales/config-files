@@ -1,5 +1,10 @@
+local utils = require("utils")
+
 now_if_args(function()
-  pack_add("scalameta/nvim-metals")
+  pack_add({
+    source = "scalameta/nvim-metals",
+    depends = { "mfussenegger/nvim-dap" },
+  })
 
   local metals = require("metals")
   local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
@@ -26,20 +31,28 @@ now_if_args(function()
     init_options = {
       statusBarProvider = "off",
     },
-    on_attach = function(client, bufnr)
-      vim.keymap.set("v", "K", metals.type_of_range)
-      vim.keymap.set("n", "<leader>fmc", metals.commands)
-      vim.keymap.set("n", "<leader>mc", metals.compile_cascade)
+    on_attach = function(_, bufnr)
+      vim.tbl_deep_extend("force", _G.Config.leader_group_clues, {
+        { mode = "n", keys = "<leader>m", desc = "+Metals" },
+      })
+
+      vim.keymap.set("v", "K", metals.type_of_range, { desc = "Type of selection" })
+      vim.keymap.set("n", "<leader>fm", metals.commands, { desc = "metal commands" })
+      vim.keymap.set("n", "<leader>mc", metals.compile_cascade, { desc = "compile cascade" })
       vim.keymap.set("n", "<leader>mh", function()
         metals.hover_worksheet()
-      end)
-      vim.keymap.set("n", "<leader>mt", require("metals.tvp").toggle_tree_view)
+      end, { desc = "hover worksheet" })
+      vim.keymap.set("n", "<leader>mt", require("metals.tvp").toggle_tree_view, { desc = "tvp tree view" })
+      vim.keymap.set("n", "<leader>dt", utils.run_nearest_codelens, { desc = "run nearest test" })
+      vim.keymap.set("n", "<leader>dT", utils.run_first_codelens, { desc = "run test file" })
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
         callback = vim.lsp.codelens.refresh,
         buffer = bufnr,
         group = nvim_metals_group,
       })
+
+      metals.setup_dap()
     end,
   })
 

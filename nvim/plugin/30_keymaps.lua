@@ -1,10 +1,14 @@
 local set = vim.keymap.set
 
 _G.Config.leader_group_clues = {
-  { mode = "n", keys = "<Leader>b", desc = "+Buffer" },
-  { mode = "n", keys = "<Leader>f", desc = "+Find" },
+  { mode = "n", keys = "<leader>b", desc = "+Buffer" },
+  { mode = "n", keys = "<leader>f", desc = "+Find" },
+  { mode = "n", keys = "<leader>t", desc = "+Toggle" },
+  { mode = "n", keys = "<leader>d", desc = "+Dap" },
+  { mode = "n", keys = "<leader>x", desc = "+Trouble" },
 }
 
+-- stylua: ignore start
 set("n", "<leader><space>", "<cmd>nohlsearch<CR>", { noremap = true })
 
 -- smart-splits
@@ -39,4 +43,32 @@ set("v", "/", "<cmd> FzfLua grep_cword<CR>")
 set("n", "<leader>fh", "<cmd> FzfLua help_tags<CR>", { desc = "Help tags" })
 set("n", "<leader>fg", "<cmd> FzfLua live_grep<CR>", { desc = "Live grep" })
 set("n", "<leader>fw", "<cmd> FzfLua grep_cword<CR>", { desc = "Current word" })
+set("n", "<leader>fq", "<cmd> FzfLua quickfix<CR>", { desc = "Quickfix" })
+set("n", "<leader>fr", "<cmd> FzfLua lsp_references<CR>", { desc = "LSP references" })
 set("n", "<leader>fc", "<cmd> FzfLua commands<CR>", { desc = "Commands" })
+set("n", "<leader>fd", "<cmd> FzfLua diagnostics_document<CR>", { desc = "Diagnostics document" })
+set("n", "<leader>fd", "<cmd> FzfLua diagnostics_workspace<CR>", { desc = "Diagnostics workspace" })
+set("n", "<leader>fo", "<cmd> FzfLua resume<CR>", { desc = "Resume" })
+
+-- toggles
+
+-- bracketed
+set("n", "[;", "<cmd> DropbarContextStart<cr>", { desc = "Go to start of current context" })
+set("n", "];", "<cmd> DropbarContextNext<cr>", { desc = "Select next context" })
+
+--dropbar
+set("n", "<Leader>;", "<cmd> DropbarPick<cr>", { desc = "Pick symbols in winbar" })
+
+-- dap
+vim.keymap.set("n", "<leader>dc", "<cmd> DapContinue<cr>", { desc = "continue" })
+vim.keymap.set("n", "<leader>dr", "<cmd> DapToggleRepl<cr>", { desc = "toggle repl" })
+vim.keymap.set("n", "<leader>db", "<cmd> DapToggleBreakpoint<cr>", { desc = "toggle breakpoint" })
+vim.keymap.set("n", "<leader>dso", "<cmd> DapStepOver<cr>", { desc = "step over" })
+vim.keymap.set("n", "<leader>dsi", "<cmd> DapStepInto<cr>", { desc = "step into" })
+
+-- trouble
+vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
+vim.keymap.set("n", "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols" })
+vim.keymap.set("n", "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references" })
+vim.keymap.set("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List" })

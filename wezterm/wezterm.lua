@@ -330,9 +330,14 @@ wezterm.on("format-tab-title", function(tab, tabs, _, econfig, _, max_width)
     fg_color = "#343F44"
   end
 
+  local is_zoomed = ""
+  if tab.active_pane.is_zoomed then
+    is_zoomed = wezterm.nerdfonts.fa_magnifying_glass .. " "
+  end
+
   -- Ensure that the titles fit in the available space,
   local title_cells = math.max(0, max_width - 3) -- (leading space + trailing space + wedge)
-  local title = wezterm.truncate_right((tab.tab_index + 1) .. ": " .. raw_title, title_cells)
+  local title = wezterm.truncate_right(is_zoomed .. (tab.tab_index + 1) .. ": " .. raw_title, title_cells)
 
   return {
     { Background = { Color = tab_background } },

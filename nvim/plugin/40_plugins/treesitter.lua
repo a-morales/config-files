@@ -1,9 +1,6 @@
 now(function()
   pack_add({
     source = "nvim-treesitter/nvim-treesitter",
-    depends = {
-      "nvim-treesitter/nvim-treesitter-context",
-    },
     hooks = {
       post_checkout = function()
         vim.cmd("TSUpdate")
@@ -26,6 +23,7 @@ now(function()
     "smithy",
     "sql",
     "scala",
+    "tsx",
     "typescript",
     "yaml",
     "vim",
@@ -44,6 +42,7 @@ now(function()
       table.insert(filetypes, ft)
     end
   end
+
   vim.api.nvim_create_autocmd("FileType", {
     pattern = filetypes,
     callback = function(event)

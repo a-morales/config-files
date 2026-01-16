@@ -21,13 +21,13 @@ later(function()
         ["alt-s"] = "toggle",
         ["alt-a"] = "toggle-all",
         ["ctrl-i"] = "toggle-preview",
+        ["ctrl-q"] = "select-all+accept",
       },
     },
     winopts = {
       height = 0.7,
       width = 0.55,
       preview = {
-        scrollbar = false,
         layout = "vertical",
         vertical = "up:40%",
       },

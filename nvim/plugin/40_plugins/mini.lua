@@ -5,16 +5,16 @@ now(function()
   require("mini.icons").setup()
 
   MiniIcons.mock_nvim_web_devicons()
-
-  local miniStarter = require("mini.starter")
-  miniStarter.setup()
 end)
 
 later(function()
   require("mini.cursorword").setup()
-  require("mini.bracketed").setup()
+  require("mini.bracketed").setup({
+    diagnostic = { options = { severity = vim.diagnostic.severity.ERROR } },
+    comment = { suffix = "" },
+  })
   require("mini.jump").setup()
-  require("mini.notify").setup()
+  -- require("mini.notify").setup()
   require("mini.pairs").setup()
   require("mini.trailspace").setup()
   require("mini.bufremove").setup()
