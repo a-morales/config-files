@@ -140,27 +140,7 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.HINT] = diagnostic_icons.HINT,
     },
   },
-  virtual_text = {
-    prefix = "",
-    spacing = 2,
-    format = function(diagnostic)
-      -- Use shorter, nicer names for some sources:
-      local special_sources = {
-        ["Lua Diagnostics."] = "lua",
-        ["Lua Syntax Check."] = "lua",
-      }
-
-      local message = diagnostic_icons[vim.diagnostic.severity[diagnostic.severity]]
-      if diagnostic.source then
-        message = string.format("%s %s", message, special_sources[diagnostic.source] or diagnostic.source)
-      end
-      if diagnostic.code then
-        message = string.format("%s[%s]", message, diagnostic.code)
-      end
-
-      return message .. " "
-    end,
-  },
+  virtual_text = false, -- disabled in favor of tiny-inline-diagnostic
   float = {
     source = "if_many",
     -- Show severity icons as prefixes.
@@ -170,8 +150,7 @@ vim.diagnostic.config({
       return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
     end,
   },
-  -- Disable signs in the gutter.
-  signs = false,
+  signs = true,
 })
 
 -- Override the virtual text diagnostic handler so that the most severe diagnostic is shown first.

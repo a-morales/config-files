@@ -19,14 +19,3 @@ _G.pack_add = MiniDeps.add
 _G.now = MiniDeps.now
 _G.later = MiniDeps.later
 _G.now_if_args = vim.fn.argc(-1) > 0 and now or later
-_G.dd = function(...)
-  Snacks.debug.inspect(...)
-end
-
-if vim.fn.has("nvim-0.11") == 1 then
-  vim._print = function(_, ...)
-    dd(...)
-  end
-else
-  vim.print = dd
-end

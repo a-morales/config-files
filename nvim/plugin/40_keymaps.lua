@@ -6,6 +6,7 @@ _G.Config.leader_group_clues = {
   { mode = "n", keys = "<leader>t", desc = "+Toggle" },
   { mode = "n", keys = "<leader>d", desc = "+Dap" },
   { mode = "n", keys = "<leader>x", desc = "+Trouble" },
+  { mode = "n", keys = "<leader>h", desc = "+Haunt" },
 }
 
 -- stylua: ignore start
@@ -48,9 +49,9 @@ set("n", "<leader>fr", "<cmd> FzfLua lsp_references<CR>", { desc = "LSP referenc
 set("n", "<leader>fc", "<cmd> FzfLua commands<CR>", { desc = "Commands" })
 set("n", "<leader>fd", "<cmd> FzfLua diagnostics_document<CR>", { desc = "Diagnostics document" })
 set("n", "<leader>fd", "<cmd> FzfLua diagnostics_workspace<CR>", { desc = "Diagnostics workspace" })
+set("n", "<leader>fi", "<cmd> Nerdy<CR>", { desc = "Icons" })
 set("n", "<leader>fo", "<cmd> FzfLua resume<CR>", { desc = "Resume" })
-
--- toggles
+set("n", "<leader>fb", "<cmd>HauntShowAll<cr>", { desc = "Bookmarks" })
 
 -- bracketed
 set("n", "[;", "<cmd> DropbarContextStart<cr>", { desc = "Go to start of current context" })
@@ -60,15 +61,30 @@ set("n", "];", "<cmd> DropbarContextNext<cr>", { desc = "Select next context" })
 set("n", "<Leader>;", "<cmd> DropbarPick<cr>", { desc = "Pick symbols in winbar" })
 
 -- dap
-vim.keymap.set("n", "<leader>dc", "<cmd> DapContinue<cr>", { desc = "continue" })
-vim.keymap.set("n", "<leader>dr", "<cmd> DapToggleRepl<cr>", { desc = "toggle repl" })
-vim.keymap.set("n", "<leader>db", "<cmd> DapToggleBreakpoint<cr>", { desc = "toggle breakpoint" })
-vim.keymap.set("n", "<leader>dso", "<cmd> DapStepOver<cr>", { desc = "step over" })
-vim.keymap.set("n", "<leader>dsi", "<cmd> DapStepInto<cr>", { desc = "step into" })
+set("n", "<leader>dc", "<cmd> DapContinue<cr>", { desc = "continue" })
+set("n", "<leader>dr", "<cmd> DapToggleRepl<cr>", { desc = "toggle repl" })
+set("n", "<leader>db", "<cmd> DapToggleBreakpoint<cr>", { desc = "toggle breakpoint" })
+set("n", "<leader>dso", "<cmd> DapStepOver<cr>", { desc = "step over" })
+set("n", "<leader>dsi", "<cmd> DapStepInto<cr>", { desc = "step into" })
 
 -- trouble
-vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics" })
-vim.keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
-vim.keymap.set("n", "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols" })
-vim.keymap.set("n", "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references" })
-vim.keymap.set("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List" })
+set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics" })
+set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
+set("n", "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols" })
+set("n", "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references" })
+set("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List" })
+
+-- haunt
+set("n", "<leader>ha", "<cmd>HauntAnnotate<cr>", { desc = "Annotate" })
+set("n", "<leader>ht", "<cmd>HauntToggleAll<cr>", { desc = "Toggle annotate" })
+set("n", "<leader>hd", "<cmd>HauntDelete<cr>", { desc = "Delete" })
+set("n", "<leader>hD", "<cmd>HauntClearAll<cr>", { desc = "Delete all" })
+set("n", "<leader>hp", "<cmd>HauntPrev<cr>", { desc = "Previous" })
+set("n", "<leader>hn", "<cmd>HauntNext<cr>", { desc = "Next" })
+set("n", "<leader>hl", "<cmd>HauntList<cr>", { desc = "List" })
+set("n", "<leader>hq", "<cmd>HauntQfAll<cr>", { desc = "Quickfix" })
+
+-- toggles
+set("n", "<leader>ta", "<cmd>HauntToggleAll<cr>", { desc = "Toggle Haunt Annotations"})
+
+-- stylua: ignore end
