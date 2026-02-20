@@ -26,9 +26,10 @@ local metals_config = vim.tbl_deep_extend("force", metals.bare_config(), {
       typeParameters = { enable = true },
     },
     serverVersion = "latest.snapshot",
+    superMethodLensesEnabled = false,
   },
   init_options = {
-    statusBarProvider = "off",
+    statusBarProvider = "on",
   },
   on_attach = function(_, bufnr)
     vim.tbl_deep_extend("force", _G.Config.leader_group_clues, {

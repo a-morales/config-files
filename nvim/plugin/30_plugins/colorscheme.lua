@@ -15,7 +15,7 @@ pack_add({
 })
 
 require("everforest").setup({
-  background = "hard",
+  background = "medium",
   transparent_background_level = 1,
   dim_inactive_windows = true,
   show_eob = true,

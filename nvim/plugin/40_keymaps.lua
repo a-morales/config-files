@@ -40,7 +40,8 @@ set("n", "<leader>bd", "<cmd> lua MiniBufremove.delete()<CR>", { desc = "Delete"
 -- fzf-lua
 set("n", "<C-p>", "<cmd> FzfLua files<CR>")
 set("n", "<C-space>", "<cmd> FzfLua buffers<CR>")
-set("v", "/", "<cmd> FzfLua grep_cword<CR>")
+set("n", "<leader>/", "<cmd> FzfLua grep_cword<CR>")
+set("v", "<leader>/", "<cmd> FzfLua grep_visual<CR>")
 set("n", "<leader>fh", "<cmd> FzfLua help_tags<CR>", { desc = "Help tags" })
 set("n", "<leader>fg", "<cmd> FzfLua live_grep<CR>", { desc = "Live grep" })
 set("n", "<leader>fw", "<cmd> FzfLua grep_cword<CR>", { desc = "Current word" })
