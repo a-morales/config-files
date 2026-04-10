@@ -1,10 +1,8 @@
-pack_add({
-  source = "neovim/nvim-lspconfig",
-  depends = {
-    "mason-org/mason.nvim",
-    "mason-org/mason-lspconfig.nvim",
-    "kosayoda/nvim-lightbulb",
-  },
+vim.pack.add({
+  gh("neovim/nvim-lspconfig"),
+  gh("mason-org/mason.nvim"),
+  gh("mason-org/mason-lspconfig.nvim"),
+  gh("kosayoda/nvim-lightbulb"),
 })
 require("mason").setup()
 

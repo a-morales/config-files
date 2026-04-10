@@ -1,10 +1,5 @@
-pack_add({
-  source = "nvim-treesitter/nvim-treesitter",
-  hooks = {
-    post_checkout = function()
-      vim.cmd("TSUpdate")
-    end,
-  },
+vim.pack.add({
+  gh("nvim-treesitter/nvim-treesitter"),
 })
 
 local ts = require("nvim-treesitter")

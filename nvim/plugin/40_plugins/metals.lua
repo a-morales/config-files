@@ -1,8 +1,8 @@
 local utils = require("utils")
 
-pack_add({
-  source = "scalameta/nvim-metals",
-  depends = { "mfussenegger/nvim-dap" },
+vim.pack.add({
+  gh("mfussenegger/nvim-dap"),
+  gh("scalameta/nvim-metals"),
 })
 
 local metals = require("metals")

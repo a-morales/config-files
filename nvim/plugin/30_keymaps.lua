@@ -52,7 +52,6 @@ set("n", "<leader>fd", "<cmd> FzfLua diagnostics_document<CR>", { desc = "Diagno
 set("n", "<leader>fd", "<cmd> FzfLua diagnostics_workspace<CR>", { desc = "Diagnostics workspace" })
 set("n", "<leader>fi", "<cmd> Nerdy<CR>", { desc = "Icons" })
 set("n", "<leader>fo", "<cmd> FzfLua resume<CR>", { desc = "Resume" })
-set("n", "<leader>fb", "<cmd>HauntShowAll<cr>", { desc = "Bookmarks" })
 
 -- bracketed
 set("n", "[;", "<cmd> DropbarContextStart<cr>", { desc = "Go to start of current context" })
@@ -74,16 +73,6 @@ set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { des
 set("n", "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols" })
 set("n", "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references" })
 set("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List" })
-
--- haunt
-set("n", "<leader>ha", "<cmd>HauntAnnotate<cr>", { desc = "Annotate" })
-set("n", "<leader>ht", "<cmd>HauntToggleAll<cr>", { desc = "Toggle annotate" })
-set("n", "<leader>hd", "<cmd>HauntDelete<cr>", { desc = "Delete" })
-set("n", "<leader>hD", "<cmd>HauntClearAll<cr>", { desc = "Delete all" })
-set("n", "<leader>hp", "<cmd>HauntPrev<cr>", { desc = "Previous" })
-set("n", "<leader>hn", "<cmd>HauntNext<cr>", { desc = "Next" })
-set("n", "<leader>hl", "<cmd>HauntList<cr>", { desc = "List" })
-set("n", "<leader>hq", "<cmd>HauntQfAll<cr>", { desc = "Quickfix" })
 
 -- toggles
 set("n", "<leader>ta", "<cmd>HauntToggleAll<cr>", { desc = "Toggle Haunt Annotations"})

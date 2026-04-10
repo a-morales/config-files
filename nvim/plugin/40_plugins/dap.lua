@@ -1,8 +1,6 @@
-pack_add({
-  source = "mfussenegger/nvim-dap",
-  depends = {
-    "igorlfs/nvim-dap-view",
-  },
+vim.pack.add({
+  gh("igorlfs/nvim-dap-view"),
+  gh("mfussenegger/nvim-dap"),
 })
 
 local dap = require("dap")

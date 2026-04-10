@@ -1,8 +1,6 @@
-pack_add({
-  source = "folke/noice.nvim",
-  depends = {
-    "MunifTanjim/nui.nvim",
-  },
+vim.pack.add({
+  gh("MunifTanjim/nui.nvim"),
+  gh("folke/noice.nvim"),
 })
 
 require("noice").setup({

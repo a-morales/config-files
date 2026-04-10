@@ -1,4 +1,4 @@
-pack_add("Bekaboo/dropbar.nvim")
+vim.pack.add({ gh("Bekaboo/dropbar.nvim") })
 
 local dropbar_api = require("dropbar.api")
 

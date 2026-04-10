@@ -1,9 +1,7 @@
-pack_add({
-  source = "nvim-neo-tree/neo-tree.nvim",
-  depends = {
-    "nvim-lua/plenary.nvim",
-    "MunifTanjim/nui.nvim",
-  },
+vim.pack.add({
+  gh("nvim-lua/plenary.nvim"),
+  gh("MunifTanjim/nui.nvim"),
+  gh("nvim-neo-tree/neo-tree.nvim"),
 })
 
 require("neo-tree").setup({

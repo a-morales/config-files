@@ -1,4 +1,6 @@
-pack_add("stevearc/conform.nvim")
+vim.pack.add({
+  gh("stevearc/conform.nvim")
+})
 
 require("conform").setup({
   notify_on_error = false,

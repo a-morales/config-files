@@ -1,7 +1,6 @@
+vim.pack.add({ gh("ibhagwan/fzf-lua") })
+
 local icons = require("icons")
-
-pack_add("ibhagwan/fzf-lua")
-
 local actions = require("fzf-lua.actions")
 
 require("fzf-lua").setup({
