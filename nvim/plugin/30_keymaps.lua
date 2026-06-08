@@ -6,7 +6,7 @@ _G.Config.leader_group_clues = {
   { mode = "n", keys = "<leader>t", desc = "+Toggle" },
   { mode = "n", keys = "<leader>d", desc = "+Dap" },
   { mode = "n", keys = "<leader>x", desc = "+Trouble" },
-  { mode = "n", keys = "<leader>h", desc = "+Haunt" },
+  { mode = "n", keys = "<leader>m", desc = "+Metals" },
 }
 
 -- stylua: ignore start
@@ -22,8 +22,8 @@ set("n", "<A-j>", "<cmd> SmartResizeDown<CR>")
 set("n", "<A-k>", "<cmd> SmartResizeUp<CR>")
 set("n", "<A-l>", "<cmd> SmartResizeRight<CR>")
 set("n", "<leader>h", "<cmd> SmartSwapLeft<CR>", { desc = "Swap Left" })
-set("n", "<leader>j", "<cmd> SmartSwapUp<CR>", { desc = "Swap Up" })
-set("n", "<leader>k", "<cmd> SmartSwapDown<CR>", { desc = "Swap Down" })
+set("n", "<leader>j", "<cmd> SmartSwapDown<CR>", { desc = "Swap Down" })
+set("n", "<leader>k", "<cmd> SmartSwapUp<CR>", { desc = "Swap Up" })
 set("n", "<leader>l", "<cmd> SmartSwapRight<CR>", { desc = "Swap Right" })
 
 -- neo-tree
@@ -49,7 +49,7 @@ set("n", "<leader>fq", "<cmd> FzfLua quickfix<CR>", { desc = "Quickfix" })
 set("n", "<leader>fr", "<cmd> FzfLua lsp_references<CR>", { desc = "LSP references" })
 set("n", "<leader>fc", "<cmd> FzfLua commands<CR>", { desc = "Commands" })
 set("n", "<leader>fd", "<cmd> FzfLua diagnostics_document<CR>", { desc = "Diagnostics document" })
-set("n", "<leader>fd", "<cmd> FzfLua diagnostics_workspace<CR>", { desc = "Diagnostics workspace" })
+set("n", "<leader>fD", "<cmd> FzfLua diagnostics_workspace<CR>", { desc = "Diagnostics workspace" })
 set("n", "<leader>fi", "<cmd> Nerdy<CR>", { desc = "Icons" })
 set("n", "<leader>fo", "<cmd> FzfLua resume<CR>", { desc = "Resume" })
 

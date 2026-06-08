@@ -12,7 +12,11 @@ require("mini.bracketed").setup({
   diagnostic = { options = { severity = vim.diagnostic.severity.ERROR } },
   comment = { suffix = "" },
 })
-require("mini.jump").setup()
+require("mini.jump").setup({
+  delay = {
+    idle_stop = 5000,
+  },
+})
 require("mini.pairs").setup()
 require("mini.trailspace").setup()
 require("mini.bufremove").setup()

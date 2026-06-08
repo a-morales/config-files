@@ -211,8 +211,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
 
 -- HACK: Override buf_request to ignore notifications from LSP servers that don't implement a method.
-local buf_request = vim.lsp.buf_request
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf_request = function(bufnr, method, params, handler)
-  return buf_request(bufnr, method, params, handler, function() end)
-end
+-- local buf_request = vim.lsp.buf_request
+-- ---@diagnostic disable-next-line: duplicate-set-field
+-- vim.lsp.buf_request = function(bufnr, method, params, handler)
+--   return buf_request(bufnr, method, params, handler, function() end)
+-- end

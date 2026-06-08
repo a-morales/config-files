@@ -8,6 +8,7 @@
 -- https://github.com/kevinhwang91/nvim-ufo
 -- https://github.com/gbprod/yanky.nvim
 -- https://github.com/gennaro-tedesco/nvim-peekup
+-- https://github.com/otavioschwanck/arrow.nvim
 
 -- can probably just be added as something to my own config
 -- https://github.com/fasterius/simple-zoom.nvim

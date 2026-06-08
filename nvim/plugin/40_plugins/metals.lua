@@ -32,10 +32,6 @@ local metals_config = vim.tbl_deep_extend("force", metals.bare_config(), {
     statusBarProvider = "on",
   },
   on_attach = function(_, bufnr)
-    vim.tbl_deep_extend("force", _G.Config.leader_group_clues, {
-      { mode = "n", keys = "<leader>m", desc = "+Metals" },
-    })
-
     vim.keymap.set("v", "K", metals.type_of_range, { desc = "Type of selection" })
     vim.keymap.set("n", "<leader>fm", metals.commands, { desc = "metal commands" })
     vim.keymap.set("n", "<leader>mc", metals.compile_cascade, { desc = "compile cascade" })
