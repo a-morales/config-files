@@ -18,6 +18,8 @@ direnv/
 zed/
 gh/
 fish/fish_variables
+fish/conf.d/secrets.fish
+fish/conf.d/disney.fish
 .jira
 daily-summary/
 karabiner/automatic_backups

@@ -2,10 +2,13 @@ if not status is-interactive
     return 0
 end
 
+# Figure out which operating system we're in.
+set -l os (uname)
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-set -U fish_greeting 
-set -U fist_key_bindings fish_vi_key_bindings
+set -U fish_greeting
+set -U fish_key_bindings fish_vi_key_bindings
 
 set -Ux EDITOR nvim
 set -Ux FZF_DEFAULT_OPTS '--color=bg+:#232A2E,bg:#2D353B,border:#7A8478,spinner:#DBBC7F,hl:#A7C080,fg:#D3C6AA,header:#7A8478,info:#83C092,pointer:#7FBBB3,marker:#DBBC7F,fg+:#D3C6AA,prompt:#E69875,hl+:#83C092 --cycle --layout=reverse --border --height=80% --preview-window=wrap --marker="*"'
@@ -15,7 +18,12 @@ set -Ux LS_COLORS (vivid generate nord)
 set -Ux HOMEBREW_NO_AUTO_UPDATE true
 set -Ux MANPAGER 'nvim +Man!'
 set -gx PATH "./node_modules/.bin" $PATH
-set -Ux KALEIDOSCOPE_DIR '${HOME}/Code/playground/Kaleidoscope'
+set -gx PATH "$HOME/.local/bin" $PATH
+set -gx PATH "$HOME/Library/Application Support/Coursier/bin" $PATH
+set -Ux COURSIER_REPOSITORIES "ivy2local|central|sonatype:releases|jitpack|https://artifactory.us-east-1.bamgrid.net/artifactory/svcscommons-maven|https://artifactory.us-east-1.bamgrid.net/artifactory/apiregistry-maven|https://artifactory.us-east-1.bamgrid.net/schemareg-maven"
+set -Ux FZF_MARKS_COMMAND "fzf --height 40% --reverse --header='ctrl-y:jump, ctrl-t:toggle, ctrl-d:delete' -n 1 -d ' : '"
+
+# Secrets live in the gitignored fish/conf.d/secrets.fish — never commit them here.
 
 alias sz='source ~/.config/fish/config.fish'
 alias rd='cd (git rev-parse --show-toplevel)'
@@ -23,11 +31,25 @@ alias gs='git status'
 alias gst='git status'
 alias gch='git checkout'
 alias gcb='git for-each-ref --format="%(refname:short)" refs/heads | sort | uniq | fzf | xargs git checkout'
+alias gbrd='git for-each-ref --format="%(refname:short)" refs/heads | sort | uniq | fzf -m | xargs git branch -d'
 alias gcr='git for-each-ref --format="%(refname:short)" refs/remotes | sort | uniq | fzf | xargs git checkout -t'
-alias gcm='git checkout (git town main-branch)'
+alias gcm='git checkout (git town config | grep "main branch" | cut -d ":" -f 2 | tr -d " ")'
 alias gdi='git diff'
 alias glo='git log --oneline'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gha='git-town hack'
 alias gsy='git-town sync'
 alias gitp='git clone (pbpaste)'
+
+# Add completions from stuff installed with Homebrew.
+if test "$os" = Darwin
+    if test -d (brew --prefix)"/share/fish/completions"
+        set -p fish_complete_path (brew --prefix)/share/fish/completions
+    end
+    if test -d (brew --prefix)"/share/fish/vendor_completions.d"
+        set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+    end
+end
+
+
+fish_ssh_agent
