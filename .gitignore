@@ -18,3 +18,6 @@ direnv/
 zed/
 gh/
 fish/fish_variables
+.jira
+daily-summary/
+karabiner/automatic_backups

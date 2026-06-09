@@ -21,58 +21,11 @@ persistent-workspaces = ["1", "2", "3", "4", "5"]
   outer.top =        12
   outer.right =      12
 
+# Keybindings are handled by Hammerspoon (~/.config/hammerspoon/init.lua),
+# which shells out to the `aerospace` CLI. This lets the active/resize modes
+# auto-exit back to main after a timeout. Keep this binding section empty so
+# aerospace doesn't also grab these keys and double-fire.
 [mode.main.binding]
-  ctrl-semicolon = ['mode active', 'exec-and-forget borders active_color=0xddbdd322']
-  ctrl-cmd-semicolon = ['mode resize', 'exec-and-forget borders active_color=0x4f809da1']
-
-  ctrl-cmd-l = "exec-and-forget aerospace list-workspaces --monitor focused --empty no | aerospace workspace --wrap-around next --stdin"
-  ctrl-cmd-h = "exec-and-forget aerospace list-workspaces --monitor focused --empty no | aerospace workspace --wrap-around prev --stdin"
-
-[mode.active.binding]
-
-  ctrl-cmd-semicolon = ['mode resize', 'exec-and-forget borders active_color=0x4f809da1']
-  esc = ['mode main', 'exec-and-forget borders active_color=0x0xddd5c4a1']
-
-  ctrl-h = 'focus left'
-  ctrl-j = 'focus down'
-  ctrl-k = 'focus up'
-  ctrl-l = 'focus right'
-  ctrl-n = 'focus-back-and-forth'
-
-  ctrl-cmd-h = 'move left'
-  ctrl-cmd-j = 'move down'
-  ctrl-cmd-k = 'move up'
-  ctrl-cmd-l = 'move right'
-
-  1 = 'workspace 1'
-  2 = 'workspace 2'
-  3 = 'workspace 3'
-  4 = 'workspace 4'
-  5 = 'workspace 5'
-
-  comma = 'reload-config'
-  equal = 'balance-sizes'
-
-[mode.resize.binding]
-
-  ctrl-semicolon = ['mode active', 'exec-and-forget borders active_color=0xddbdd322']
-  esc = ['mode main', 'exec-and-forget borders active_color=0x0xddd5c4a1']
-
-  z = 'fullscreen'
-  f = 'layout floating tiling'
-  s = 'layout tiles accordion'
-  backslash = 'layout horizontal vertical'
-
-  minus = 'resize smart -50'
-  equal = 'resize smart +50'
-
-  1 = 'move-node-to-workspace 1'
-  2 = 'move-node-to-workspace 2'
-  3 = 'move-node-to-workspace 3'
-  4 = 'move-node-to-workspace 4'
-  5 = 'move-node-to-workspace 5'
-  l = 'move-node-to-workspace --wrap-around next'
-  h = 'move-node-to-workspace --wrap-around prev'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.AppStore'

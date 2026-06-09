@@ -25,7 +25,7 @@ config.hide_tab_bar_if_only_one_tab = false
 config.use_fancy_tab_bar = false
 config.window_decorations = "RESIZE"
 config.tab_max_width = 40
-config.window_background_opacity = 0.9
+-- config.window_background_opacity = 0.9
 config.macos_window_background_blur = 30
 config.bold_brightens_ansi_colors = true
 config.set_environment_variables = {
@@ -210,4 +210,7 @@ table.insert(config.hyperlink_rules, {
   format = "https://jira.disney.com/browse/APIREG-$1",
 })
 
+-- BEGIN zproj integration (managed — do not edit)
+require('zproj').apply(config)
+-- END zproj integration
 return config

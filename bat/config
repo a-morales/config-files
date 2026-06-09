@@ -1,5 +1,4 @@
---theme="Nord"
---style="changes"
+--theme="zenburn"
 --italic-text=always
 --map-syntax="*.sbt:Scala"
 --map-syntax="*.sc:Scala"
