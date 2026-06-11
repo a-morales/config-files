@@ -1,6 +1,7 @@
 vim.cmd("filetype plugin indent on")
 
 vim.o.autoindent = true
+vim.o.autoread = true
 vim.o.background = "dark"
 vim.o.breakindent = true
 vim.o.breakindentopt = "list:-1"

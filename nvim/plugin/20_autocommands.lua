@@ -38,6 +38,24 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "TermClose", "TermLeave" }, {
+  group = create_group("auto_reload"),
+  desc = "Check for files changed outside Neovim (e.g. edits made by Claude)",
+  callback = function()
+    if vim.o.buftype ~= "nofile" and vim.fn.mode() ~= "c" then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  group = create_group("auto_reload_notify"),
+  desc = "Notify when a buffer is reloaded after an external change",
+  callback = function()
+    vim.notify("File changed on disk; buffer reloaded", vim.log.levels.WARN)
+  end,
+})
+
 vim.api.nvim_create_autocmd("PackChanged", {
   group = create_group("pack_changed"),
   callback = function(ev)

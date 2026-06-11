@@ -1,6 +1,7 @@
 local set = vim.keymap.set
 
 _G.Config.leader_group_clues = {
+  { mode = "n", keys = "<leader>a", desc = "+AI" },
   { mode = "n", keys = "<leader>b", desc = "+Buffer" },
   { mode = "n", keys = "<leader>f", desc = "+Find" },
   { mode = "n", keys = "<leader>t", desc = "+Toggle" },
@@ -74,7 +75,11 @@ set("n", "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "
 set("n", "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references" })
 set("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List" })
 
--- toggles
-set("n", "<leader>ta", "<cmd>HauntToggleAll<cr>", { desc = "Toggle Haunt Annotations"})
+-- claudecode
+set("n", "<leader>ac", "<cmd>ClaudeCode<cr>", { desc = "Toggle Claude" })
+set({ "n", "x" }, "<leader>as", "<cmd>ClaudeCodeSend<cr>", { desc = "Send to Claude" })
+set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", { desc = "Add buffer to context" })
+set("n", "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", { desc = "Accept diff" })
+set("n", "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", { desc = "Reject diff" })
 
 -- stylua: ignore end
