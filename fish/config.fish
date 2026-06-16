@@ -17,9 +17,12 @@ set -Ux FZF_DEFAULT_OPTS '--color=bg+:#232A2E,bg:#2D353B,border:#7A8478,spinner:
 set -Ux LS_COLORS (vivid generate nord)
 set -Ux HOMEBREW_NO_AUTO_UPDATE true
 set -Ux MANPAGER 'nvim +Man!'
-set -gx PATH "./node_modules/.bin" $PATH
-set -gx PATH "$HOME/.local/bin" $PATH
-set -gx PATH "$HOME/Library/Application Support/Coursier/bin" $PATH
+# --move forces these ahead of /opt/homebrew/bin, which `brew shellenv` (above)
+# prepends to PATH on every launch. Without --move, fish_add_path is a no-op for
+# entries already in the persisted universal $fish_user_paths, so homebrew wins.
+fish_add_path --move "$HOME/.local/bin"
+fish_add_path --move "$HOME/Library/Application Support/Coursier/bin"
+fish_add_path --move "$HOME/go/bin"
 set -Ux COURSIER_REPOSITORIES "ivy2local|central|sonatype:releases|jitpack|https://artifactory.us-east-1.bamgrid.net/artifactory/svcscommons-maven|https://artifactory.us-east-1.bamgrid.net/artifactory/apiregistry-maven|https://artifactory.us-east-1.bamgrid.net/schemareg-maven"
 set -Ux FZF_MARKS_COMMAND "fzf --height 40% --reverse --header='ctrl-y:jump, ctrl-t:toggle, ctrl-d:delete' -n 1 -d ' : '"
 
@@ -40,6 +43,7 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 alias gha='git-town hack'
 alias gsy='git-town sync'
 alias gitp='git clone (pbpaste)'
+alias pclaude='CLAUDE_CONFIG_DIR="$HOME/.claude-personal" claude'
 
 # Add completions from stuff installed with Homebrew.
 if test "$os" = Darwin
