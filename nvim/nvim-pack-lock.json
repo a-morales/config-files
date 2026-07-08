@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "baleia.nvim": {
+      "rev": "710537ff5cd669c5a76c5f5b6a9169fd9b913d18",
+      "src": "https://github.com/m00qek/baleia.nvim"
+    },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp",
@@ -37,10 +41,6 @@
       "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "haunt.nvim": {
-      "rev": "462a2f6cf05b084d68e9fd7501d278b4a41a9449",
-      "src": "file:///Users/amorales/Temp/haunt.nvim"
-    },
     "helpview.nvim": {
       "rev": "518789535a0cb146224a428edf93a70f98b795db",
       "src": "https://github.com/OXY2DEV/helpview.nvim"
@@ -61,14 +61,6 @@
       "rev": "f41886b4b2792af927a8ae689e2952e2db4173f6",
       "src": "https://github.com/yousefhadder/markdown-plus.nvim"
     },
-    "mason-lspconfig.nvim": {
-      "rev": "0a3b42c3e503df87aef6d6513e13148381495c3a",
-      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
-    },
-    "mason.nvim": {
-      "rev": "b03fb0f20bc1d43daf558cda981a2be22e73ac42",
-      "src": "https://github.com/mason-org/mason.nvim"
-    },
     "mini.nvim": {
       "rev": "69b7433355664cf76898eb86a12a019f39bd86d1",
       "src": "https://github.com/nvim-mini/mini.nvim"
@@ -80,6 +72,10 @@
     "neo-tree.nvim": {
       "rev": "b48ed11632c8208ffb27dab6acfbf16e4f9e3376",
       "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"
+    },
+    "neogit": {
+      "rev": "95ab34f3137a01e830d01eb494fa508390d8c0b3",
+      "src": "https://github.com/NeogitOrg/neogit"
     },
     "nerdy.nvim": {
       "rev": "97b0914dece80204a777f04c94b9980da0f7ac88",
@@ -140,6 +136,10 @@
     "onenord.nvim": {
       "rev": "b68f1e66736840e837c2a77ebff59c932fcb70c7",
       "src": "https://github.com/rmehri01/onenord.nvim"
+    },
+    "output-panel.nvim": {
+      "rev": "82a0b1248cc581d5939486c4befefcfbdc8c3cf2",
+      "src": "https://github.com/mhanberg/output-panel.nvim"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",

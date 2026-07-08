@@ -9,6 +9,8 @@
 -- https://github.com/gbprod/yanky.nvim
 -- https://github.com/gennaro-tedesco/nvim-peekup
 -- https://github.com/otavioschwanck/arrow.nvim
+-- https://github.com/stevearc/quicker.nvim
+-- https://github.com/jtprogru/pack-ui.nvim
 
 -- can probably just be added as something to my own config
 -- https://github.com/fasterius/simple-zoom.nvim

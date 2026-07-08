@@ -25,7 +25,7 @@ local metals_config = vim.tbl_deep_extend("force", metals.bare_config(), {
       inferredTypes = { enable = true },
       typeParameters = { enable = true },
     },
-    serverVersion = "latest.snapshot",
+    serverVersion = "latest",
     superMethodLensesEnabled = false,
   },
   init_options = {
