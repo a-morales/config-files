@@ -1,7 +1,6 @@
 local wezterm = require("wezterm")
 local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-local projects = require("projects")
 
 local config = wezterm.config_builder()
 
@@ -154,14 +153,33 @@ config.keys = {
     action = wezterm.action.MoveTabRelative(1),
   },
   {
-    key = "p",
-    mods = "LEADER",
-    action = projects.choose_project(),
-  },
-  {
     key = "f",
     mods = "LEADER",
     action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
+  },
+  {
+    key = "n",
+    mods = "LEADER",
+    action = wezterm.action.PromptInputLine {
+      description = wezterm.format {
+        { Attribute = { Intensity = 'Bold' } },
+        { Foreground = { AnsiColor = 'Fuchsia' } },
+        { Text = 'Enter name for new workspace' },
+      },
+      action = wezterm.action_callback(function(window, pane, line)
+        -- line will be `nil` if they hit escape without entering anything
+        -- An empty string if they just hit enter
+        -- Or the actual line of text they wrote
+        if line then
+          window:perform_action(
+            wezterm.action.SwitchToWorkspace {
+              name = line,
+            },
+            pane
+          )
+        end
+      end),
+    },
   },
   {
     key = ",",
@@ -210,7 +228,4 @@ table.insert(config.hyperlink_rules, {
   format = "https://jira.disney.com/browse/APIREG-$1",
 })
 
--- BEGIN zproj integration (managed — do not edit)
-require('zproj').apply(config)
--- END zproj integration
 return config
