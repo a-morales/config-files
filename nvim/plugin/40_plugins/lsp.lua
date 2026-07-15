@@ -1,7 +1,7 @@
 vim.pack.add({
   gh("neovim/nvim-lspconfig"),
   gh("kosayoda/nvim-lightbulb"),
-  gh("mhanberg/output-panel.nvim")
+  gh("mhanberg/output-panel.nvim"),
 })
 
 -- LSP servers are installed outside of nvim (Homebrew for lua_ls/ts_ls/bashls,
