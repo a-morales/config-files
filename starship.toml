@@ -1,6 +1,36 @@
 add_newline = false
-format= "$directory$git_branch$git_commit$git_state$git_status$docker_context$scala$gleam$lua$nodejs$line_break$time$character"
+format= "${custom.dir}$git_branch$git_commit$git_state$git_status${custom.git-town}$docker_context$scala$gleam$lua$nodejs$line_break$time$character"
 palette = "everforest"
+
+# Replaces the built-in `directory` module so that inside a git repo we always
+# show the repo/project name rather than the current directory. For a normal
+# clone the repo root is the project dir, so this matches the default behavior.
+# For a bare clone (`git clone --bare`) where worktrees live under REPO_NAME/,
+# the worktree is its own repo root, so the default would show the worktree name
+# (e.g. `main`). We instead derive the name from the parent of the common git
+# dir (the `.bare`/`.git` parent), giving REPO_NAME, and append the in-worktree
+# subpath. Outside a repo we fall back to a `~`-aware, 3-component truncated path.
+[custom.dir]
+when = "true"
+shell = ["sh"]
+symbol = ""
+style = "bold cyan"
+format = "[$output]($style) "
+command = '''
+if prefix=$(git rev-parse --show-prefix 2>/dev/null); then
+  common=$(cd "$(git rev-parse --git-common-dir)" && pwd)
+  name=$(basename "$(dirname "$common")")
+  prefix=${prefix%/}
+  if [ -n "$prefix" ]; then printf '%s/%s' "$name" "$prefix"; else printf '%s' "$name"; fi
+else
+  p="$PWD"
+  case "$p" in
+    "$HOME") printf '~'; exit 0;;
+    "$HOME"/*) p="~/${p#$HOME/}";;
+  esac
+  printf '%s' "$p" | awk -F/ '{n=NF; s=(n>3)?n-2:1; out=$s; for(i=s+1;i<=n;i++) out=out"/"$i; print out}'
+fi
+'''
 
 [character]
 success_symbol = "[λ](bold green)"
@@ -17,6 +47,12 @@ disabled = true
 
 [python]
 disabled = true
+
+[custom.git-town]
+command = "git town status --pending"
+format = "[ $output ]($style)"
+style = "bg:yellow fg:black"
+when = "test -n \"$(git town status --pending)\" "
 
 [palettes.everforest]
 bg_dim = "#232a2e"
