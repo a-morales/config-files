@@ -17,6 +17,7 @@ require("conform").setup({
       return {}
     end,
     bash = { "shfmt" },
+    rust = { "rustfmt", lsp_format = "fallback" },
     ["_"] = { "trim_whitespace" },
   },
   format_on_save = {
