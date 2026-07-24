@@ -23,6 +23,7 @@ set -Ux MANPAGER 'nvim +Man!'
 fish_add_path --move "$HOME/.local/bin"
 fish_add_path --move "$HOME/Library/Application Support/Coursier/bin"
 fish_add_path --move "$HOME/go/bin"
+fish_add_path --move "$(brew --prefix rustup)/bin"
 set -Ux COURSIER_REPOSITORIES "ivy2local|central|sonatype:releases|jitpack|https://artifactory.us-east-1.bamgrid.net/artifactory/svcscommons-maven|https://artifactory.us-east-1.bamgrid.net/artifactory/apiregistry-maven|https://artifactory.us-east-1.bamgrid.net/schemareg-maven"
 set -Ux FZF_MARKS_COMMAND "fzf --height 40% --reverse --header='ctrl-y:jump, ctrl-t:toggle, ctrl-d:delete' -n 1 -d ' : '"
 

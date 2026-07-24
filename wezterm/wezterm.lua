@@ -1,6 +1,11 @@
+--@type Wezterm
 local wezterm = require("wezterm")
+--@type SmartSplitsWezterm
 local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
+--@type TablineWez
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+
+local agents_notifications = require("agents_notifications")
 
 local config = wezterm.config_builder()
 
@@ -18,6 +23,7 @@ config.font_rules = {
     font = wezterm.font("Cartograph CF", { weight = "Bold", stretch = "Normal", style = "Italic" }),
   },
 }
+config.notification_handling = "AlwaysShow"
 config.font_size = 14
 config.cell_width = 0.9
 config.hide_tab_bar_if_only_one_tab = false
@@ -138,11 +144,6 @@ config.keys = {
     action = wezterm.action.RotatePanes("Clockwise"),
   },
   {
-    key = "w",
-    mods = "LEADER",
-    action = wezterm.action.CloseCurrentPane({ confirm = true }),
-  },
-  {
     key = "h",
     mods = "LEADER",
     action = wezterm.action.MoveTabRelative(-1),
@@ -193,6 +194,11 @@ config.keys = {
       end),
     }),
   },
+  {
+    key = "1",
+    mods = "LEADER",
+    action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|TABS" }),
+  }
 }
 
 smart_splits.apply_to_config(config, {
@@ -225,7 +231,9 @@ config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
 table.insert(config.hyperlink_rules, {
   regex = [[APIREG-(\d+)]],
-  format = "https://jira.disney.com/browse/APIREG-$1",
+  format = "https://deept.atlassian.net/browse/APIREG-$1",
 })
+
+agents_notifications.setup(wezterm)
 
 return config

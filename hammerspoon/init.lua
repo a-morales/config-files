@@ -6,16 +6,16 @@
 -- own). The bindings below mirror the old aerospace.toml [mode.*.binding]
 -- sections.
 
-local AEROSPACE = "/opt/homebrew/bin/aerospace"
-local BORDERS   = "/opt/homebrew/bin/borders"
+local AEROSPACE    = "/opt/homebrew/bin/aerospace"
+local BORDERS      = "/opt/homebrew/bin/borders"
 
 -- Seconds of inactivity before the active/resize modes drop back to main.
 -- Set to 0 to disable the auto-exit timeout.
-local MODE_TIMEOUT = 3
+local MODE_TIMEOUT = 1
 
 -- JankyBorders active color per mode (from the old aerospace config; the
 -- main color fixes the stray "0x0x" typo in the original).
-local COLORS = {
+local COLORS       = {
   main   = "0xddd5c4a1",
   active = "0xddbdd322",
   resize = "0x4f809da1",
@@ -41,7 +41,7 @@ end
 -- Cycle to the next/prev non-empty workspace on the focused monitor.
 local function cycleWorkspace(dir)
   shell(AEROSPACE .. " list-workspaces --monitor focused --empty no | "
-     .. AEROSPACE .. " workspace --wrap-around " .. dir .. " --stdin")
+    .. AEROSPACE .. " workspace --wrap-around " .. dir .. " --stdin")
 end
 
 -- Modes ---------------------------------------------------------------------
@@ -95,15 +95,15 @@ end
 
 -- main mode -----------------------------------------------------------------
 
-modes.main:bind({ "ctrl" },        ";", function() enterMode("active") end)
+modes.main:bind({ "ctrl" }, ";", function() enterMode("active") end)
 modes.main:bind({ "ctrl", "cmd" }, ";", function() enterMode("resize") end)
 modes.main:bind({ "ctrl", "cmd" }, "l", function() cycleWorkspace("next") end)
 modes.main:bind({ "ctrl", "cmd" }, "h", function() cycleWorkspace("prev") end)
 
 -- active mode ---------------------------------------------------------------
 
-modes.active:bind({ "ctrl", "cmd" }, ";",      function() enterMode("resize") end)
-modes.active:bind({},                "escape", function() enterMode("main") end)
+modes.active:bind({ "ctrl", "cmd" }, ";", function() enterMode("resize") end)
+modes.active:bind({}, "escape", function() enterMode("main") end)
 
 modes.active:bind({ "ctrl" }, "h", tick(function() aero("focus", "left") end))
 modes.active:bind({ "ctrl" }, "j", tick(function() aero("focus", "down") end))
@@ -125,12 +125,12 @@ modes.active:bind({}, "=", tick(function() aero("balance-sizes") end))
 
 -- resize mode ---------------------------------------------------------------
 
-modes.resize:bind({ "ctrl" }, ";",      function() enterMode("active") end)
-modes.resize:bind({},         "escape", function() enterMode("main") end)
+modes.resize:bind({ "ctrl" }, ";", function() enterMode("active") end)
+modes.resize:bind({}, "escape", function() enterMode("main") end)
 
-modes.resize:bind({}, "z",  tick(function() aero("fullscreen") end))
-modes.resize:bind({}, "f",  tick(function() aero("layout", "floating", "tiling") end))
-modes.resize:bind({}, "s",  tick(function() aero("layout", "tiles", "accordion") end))
+modes.resize:bind({}, "z", tick(function() aero("fullscreen") end))
+modes.resize:bind({}, "f", tick(function() aero("layout", "floating", "tiling") end))
+modes.resize:bind({}, "s", tick(function() aero("layout", "tiles", "accordion") end))
 modes.resize:bind({}, "\\", tick(function() aero("layout", "horizontal", "vertical") end))
 
 modes.resize:bind({}, "-", tick(function() aero("resize", "smart", "-50") end))

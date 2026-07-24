@@ -16,4 +16,6 @@ function git_bare_clone -a dir_name repo_url -d "clone the github url repo as a 
     set -l MAIN_BRANCH (git remote show origin | grep "HEAD branch" | awk -F': ' '{print $2}')
 
     git worktree add $MAIN_BRANCH $MAIN_BRANCH
+    git branch --set-upstream-to=origin/$MAIN_BRANCH $MAIN_BRANCH
+    cd $MAIN_BRANCH
 end

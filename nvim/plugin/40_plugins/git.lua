@@ -1,4 +1,4 @@
-vim.pack.add({ 
+vim.pack.add({
   gh("MunifTanjim/nui.nvim"),
   gh("esmuellert/codediff.nvim"),
   gh("lewis6991/gitsigns.nvim"),
@@ -11,4 +11,4 @@ require("gitsigns").setup()
 -- TODO: configure this more
 require("codediff").setup()
 
-require("neogit").setup()
+require("neogit").setup({})
