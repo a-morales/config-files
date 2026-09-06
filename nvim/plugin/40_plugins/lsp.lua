@@ -8,7 +8,7 @@ vim.pack.add({
 
 -- LSP servers are installed outside of nvim (Homebrew for lua_ls/ts_ls/bashls,
 -- Coursier for smithy_ls) and must be on PATH. Configs live in after/lsp/.
-vim.lsp.enable({ "lua_ls", "ts_ls", "smithy_ls", "bashls", "rust_analyzer" })
+vim.lsp.enable({ "lua_ls", "ts_ls", "smithy_ls", "bashls" })
 
 vim.api.nvim_create_user_command("LspLog", function()
   vim.cmd.tabnew(vim.lsp.log.get_filename())

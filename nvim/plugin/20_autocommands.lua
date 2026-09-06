@@ -1,6 +1,9 @@
+local utils = require("utils")
+
 local create_group = function(name)
   vim.api.nvim_create_augroup("amorales/" .. name, { clear = true })
 end
+
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = create_group("yank_highlight"),
@@ -45,6 +48,25 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "TermClos
     if vim.o.buftype ~= "nofile" and vim.fn.mode() ~= "c" then
       vim.cmd("checktime")
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
+  group = create_group("wezterm-set-var"),
+  desc = "set tab title for wezterm",
+  callback = function()
+    if vim.o.buftype ~= "nofile" and vim.fn.mode() ~= "c" then
+      local filename = vim.fn.expand("%:t")
+      utils.set_wezterm_user_var("VIM_FILE", filename)
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'VimLeavePre', 'VimSuspend' }, {
+  group = create_group("wezterm-reset-var"),
+  desc = "reset wezterm tab title on exit or unfocus",
+  callback = function()
+    utils.set_wezterm_user_var("VIM_FILE")
   end,
 })
 

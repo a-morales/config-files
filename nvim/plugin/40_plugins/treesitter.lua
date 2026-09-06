@@ -24,6 +24,7 @@ local ensure_languages = {
   "yaml",
   "vim",
   "regex",
+  "rust"
 }
 local isnt_installed = function(lang)
   return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0

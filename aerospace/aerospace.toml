@@ -16,10 +16,10 @@ persistent-workspaces = ["1", "2", "3", "4", "5"]
 [gaps]
   inner.horizontal = 10
   inner.vertical =   10
-  outer.left =       12
-  outer.bottom =     12
-  outer.top =        12
-  outer.right =      12
+  outer.left =       10
+  outer.bottom =     10
+  outer.top =        4
+  outer.right =      10
 
 # Keybindings are handled by Hammerspoon (~/.config/hammerspoon/init.lua),
 # which shells out to the `aerospace` CLI. This lets the active/resize modes
@@ -31,9 +31,13 @@ persistent-workspaces = ["1", "2", "3", "4", "5"]
 if.app-id = 'com.apple.AppStore'
 run = 'layout floating'
 
- [[on-window-detected]]
+# [[on-window-detected]]
 # if.app-id = 'com.apple.Preview'
 # run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.electron.gitify'
+run = 'layout floating'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'

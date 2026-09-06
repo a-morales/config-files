@@ -72,7 +72,8 @@ set("n", "<leader>dsi", "<cmd> DapStepInto<cr>", { desc = "step into" })
 set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics" })
 set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
 set("n", "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols" })
-set("n", "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references" })
+set("n", "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+  { desc = "LSP Definitions / references" })
 set("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List" })
 
 -- claudecode
@@ -83,3 +84,15 @@ set("n", "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", { desc = "Accept diff" }
 set("n", "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", { desc = "Reject diff" })
 
 -- stylua: ignore end
+--
+set("n", "<leader>yp", function()
+  local path = vim.api.nvim_buf_get_name(0) -- 0 implies current buffer
+  vim.fn.setreg('+', path)
+end, { desc = "Copy absolute path to file to clipboard" })
+
+vim.keymap.set('n', '<leader>yl', function()
+  local filepath = vim.fn.expand('%:.')
+  local line = vim.fn.line('.')
+  local result = string.format('%s:%d', filepath, line)
+  vim.fn.setreg('+', result)
+end, { desc = 'Copy filepath and line number' })

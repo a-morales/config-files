@@ -6,7 +6,11 @@
 -- own). The bindings below mirror the old aerospace.toml [mode.*.binding]
 -- sections.
 
-local AEROSPACE    = "/opt/homebrew/bin/aerospace"
+-- Shared with the Neovim and WezTerm configs; see ~/.config/lua/aerospace.lua.
+package.path       = os.getenv("HOME") .. "/.config/lua/?.lua;" .. package.path
+local aerospace    = require("aerospace")
+
+local AEROSPACE    = aerospace.bin
 local BORDERS      = "/opt/homebrew/bin/borders"
 
 -- Seconds of inactivity before the active/resize modes drop back to main.
@@ -38,10 +42,15 @@ local function borders(color)
   hs.task.new(BORDERS, nil, { "active_color=" .. color }):start()
 end
 
--- Cycle to the next/prev non-empty workspace on the focused monitor.
+-- Cycle to the next/prev non-empty workspace on the focused monitor, landing
+-- on the window nearest the edge we came from.
 local function cycleWorkspace(dir)
-  shell(AEROSPACE .. " list-workspaces --monitor focused --empty no | "
-    .. AEROSPACE .. " workspace --wrap-around " .. dir .. " --stdin")
+  shell(aerospace.cycle_workspace_cmd(dir))
+end
+
+-- Focus in `dir`, falling back to cycling workspaces at the layout boundary.
+local function focusOrCycle(dir)
+  shell(aerospace.focus_or_cycle_cmd(dir))
 end
 
 -- Modes ---------------------------------------------------------------------
@@ -105,10 +114,6 @@ modes.main:bind({ "ctrl", "cmd" }, "h", function() cycleWorkspace("prev") end)
 modes.active:bind({ "ctrl", "cmd" }, ";", function() enterMode("resize") end)
 modes.active:bind({}, "escape", function() enterMode("main") end)
 
-modes.active:bind({ "ctrl" }, "h", tick(function() aero("focus", "left") end))
-modes.active:bind({ "ctrl" }, "j", tick(function() aero("focus", "down") end))
-modes.active:bind({ "ctrl" }, "k", tick(function() aero("focus", "up") end))
-modes.active:bind({ "ctrl" }, "l", tick(function() aero("focus", "right") end))
 modes.active:bind({ "ctrl" }, "n", tick(function() aero("focus-back-and-forth") end))
 
 modes.active:bind({ "ctrl", "cmd" }, "h", tick(function() aero("move", "left") end))
@@ -142,6 +147,47 @@ end
 modes.resize:bind({}, "l", tick(function() aero("move-node-to-workspace", "--wrap-around", "next") end))
 modes.resize:bind({}, "h", tick(function() aero("move-node-to-workspace", "--wrap-around", "prev") end))
 
+-- Seamless focus navigation ---------------------------------------------------
+--
+-- ctrl-hjkl moves aerospace focus from anywhere, except in apps that need those
+-- keys themselves (WezTerm, so vim/terminal splits keep working). Ported from
+-- skagr/wezterm-config's karabiner.json.
+--
+-- Karabiner did this with `frontmost_application_unless` evaluated per keypress;
+-- here the bindings are enabled/disabled on app activation instead, which means
+-- "pass through" is a genuine no-op rather than a re-synthesized keystroke.
+
+local PASSTHROUGH_APPS = {
+  ["com.github.wez.wezterm"] = true,
+}
+
+local focusNav = hs.hotkey.modal.new()
+
+focusNav:bind({ "ctrl" }, "h", function() focusOrCycle("left") end)
+focusNav:bind({ "ctrl" }, "j", function() aero("focus", "down") end)
+focusNav:bind({ "ctrl" }, "k", function() aero("focus", "up") end)
+focusNav:bind({ "ctrl" }, "l", function() focusOrCycle("right") end)
+
+local function syncFocusNav(app)
+  app = app or hs.application.frontmostApplication()
+  local bundleID = app and app:bundleID()
+  if bundleID and PASSTHROUGH_APPS[bundleID] then
+    focusNav:exit()
+  else
+    focusNav:enter()
+  end
+end
+
+-- Deliberately global: hs.application.watcher objects are garbage collected if
+-- they are only held by a local that goes out of scope when init.lua finishes.
+appWatcher = hs.application.watcher.new(function(_, event, app)
+  if event == hs.application.watcher.activated then
+    syncFocusNav(app)
+  end
+end)
+appWatcher:start()
+
 -- Start in main mode.
 enterMode("main")
+syncFocusNav()
 hs.alert.show("Aerospace bindings loaded")
