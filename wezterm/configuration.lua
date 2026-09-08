@@ -16,8 +16,11 @@ function M.setup()
     atomic = true,
     defaults = {
       foreground = scheme_fg,
-      background = scheme_bg
-    }
+      background = scheme_bg,
+      attributes = {
+        Invisible = { Invisible = true }
+      }
+    },
   })
 
   config.color_scheme = SCHEME
@@ -68,13 +71,18 @@ function M.setup()
   }
   config.colors = {
     tab_bar = {
-      background = scheme_bg:darken(0.1),
+      background = scheme_bg:darken(0.2),
+      new_tab = {
+        bg_color = scheme_bg:lighten(0.1),
+        fg_color = scheme_fg
+      }
     },
   }
   config.tab_bar_style = {
     new_tab = ribbon:new("new_tab_text")
-        :append(nil, nil, " +")
-        :append(scheme_bg:darken(0.1), scheme_bg, wezterm.nerdfonts.ple_right_half_circle_thick)
+        :append(config.colors.tab_bar.new_tab.bg_color, nil, " +")
+        :append(config.colors.tab_bar.background, config.colors.tab_bar.new_tab.bg_color,
+          wezterm.nerdfonts.ple_right_half_circle_thick)
         :format()
   }
 

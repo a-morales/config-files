@@ -3,7 +3,6 @@ local M = {}
 M.run_nearest_codelens = function()
   local current_line = vim.fn.line(".") - 1
   local nearest_codelens_line = current_line
-  local height = math.huge
 
   for _, codelens in pairs(vim.lsp.codelens.get()) do
     local start_line = codelens.range.start.line
@@ -21,9 +20,12 @@ M.run_nearest_codelens = function()
 end
 
 M.run_first_codelens = function()
-  local first_codelens_line = vim.lsp.codelens.get()[1].range.start.line + 1
-  vim.api.nvim_win_set_cursor(0, { first_codelens_line, 0 })
-  vim.lsp.codelens.run()
+  local first_codelens = vim.lsp.codelens.get()[1]
+  if first_codelens ~= nil then
+    local first_codelens_line = first_codelens.range.start.line + 1
+    vim.api.nvim_win_set_cursor(0, { first_codelens_line, 0 })
+    vim.lsp.codelens.run()
+  end
 end
 
 
@@ -43,7 +45,6 @@ M.set_wezterm_user_var = function(name, value)
   local template = "\x1b]1337;SetUserVar=%s=%s\a"
   local command = template:format(name, vim.base64.encode(tostring(value)))
 
-  vim.print("setting user var " .. name .. "=" .. tostring(value))
   vim.api.nvim_chan_send(vim.v.stderr, command)
 end
 

@@ -2,6 +2,7 @@
 local wezterm = require("wezterm")
 --- @type SmartSplitsWezterm
 local smart_splits = wezterm.plugin.require "file:///Users/amorales/Code/personal/smart-splits.nvim"
+local agents = require("agents")
 
 -- Shared with the Hammerspoon and Neovim configs; see ~/.config/lua/aerospace.lua.
 package.path = os.getenv("HOME") .. "/.config/lua/?.lua;" .. package.path
@@ -39,6 +40,11 @@ M.apply_to_config = function(config)
       key = "-",
       mods = "LEADER",
       action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+    },
+    {
+      key = "a",
+      mods = "LEADER",
+      action = agents.AgentSelector
     },
     {
       key = "o",

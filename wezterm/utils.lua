@@ -2,6 +2,11 @@
 local wezterm = require("wezterm")
 local M = {}
 
+-- Shared powerline-separator glyphs (tabs.lua and statusbar.lua both need
+-- these); defined once here so the two modules can't drift.
+M.NF_PLE_L = wezterm.nerdfonts.ple_left_half_circle_thick
+M.NF_PLE_R = wezterm.nerdfonts.ple_right_half_circle_thick
+
 M.process_icons = {
   nvim = wezterm.nerdfonts.custom_neovim,
   vim = wezterm.nerdfonts.custom_neovim,
@@ -36,6 +41,20 @@ M.process_icons = {
   mill = wezterm.nerdfonts.dev_scala,
   caffeinate = wezterm.nerdfonts.md_coffee,
   leaf = wezterm.nerdfonts.fa_leaf
+}
+
+-- Named ansi-palette indices for the active color scheme (everforest); these
+-- are scheme-specific accents, not the standard ANSI red/green/blue slots.
+M.ANSI_OLIVE = 4
+M.ANSI_PURPLE = 6
+M.ANSI_TEAL = 7
+
+-- Process-to-color mapping for tab coloring (process name → ansi index).
+-- Keyed the same way as process_icons above so the two stay easy to keep in sync.
+M.process_colors = {
+  nvim = M.ANSI_PURPLE,
+  claude = M.ANSI_TEAL,
+  pi = M.ANSI_TEAL,
 }
 
 local ignore_processes_for_unseen = {

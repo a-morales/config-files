@@ -33,12 +33,12 @@ local function on_attach(client, bufnr)
   end, "Next error")
 
   -- Don't check for the capability here to allow dynamic registration of the request.
-  -- vim.lsp.document_color.enable(true, bufnr)
-  -- if client:supports_method("textDocument/documentColor") then
-  --   keymap("grc", function()
-  --     vim.lsp.document_color.color_presentation()
-  --   end, "vim.lsp.document_color.color_presentation()", { "n", "x" })
-  -- end
+  vim.lsp.document_color.enable(true)
+  if client:supports_method("textDocument/documentColor") then
+    keymap("grc", function()
+      vim.lsp.document_color.color_presentation()
+    end, "vim.lsp.document_color.color_presentation()", { "n", "x" })
+  end
 
   if client:supports_method("textDocument/references") then
     keymap("grr", "<cmd>FzfLua lsp_references<cr>", "vim.lsp.buf.references()")
@@ -209,10 +209,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
-
--- HACK: Override buf_request to ignore notifications from LSP servers that don't implement a method.
--- local buf_request = vim.lsp.buf_request
--- ---@diagnostic disable-next-line: duplicate-set-field
--- vim.lsp.buf_request = function(bufnr, method, params, handler)
---   return buf_request(bufnr, method, params, handler, function() end)
--- end

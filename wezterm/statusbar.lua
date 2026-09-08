@@ -4,8 +4,7 @@
 local wezterm      = require("wezterm")
 local utils        = require("utils")
 local ribbon       = wezterm.plugin.require("https://github.com/sravioli/ribbon.wz")
----@type AgentDeck
-local agent_deck   = wezterm.plugin.require('https://github.com/Eric162/wezterm-agent-deck')
+local agents       = require("agents")
 
 -- Hot-path locals: resolve module-level functions + constants once at load time.
 -- In Lua 5.4 (WezTerm's runtime) globals/table lookups are ~20x slower than
@@ -16,8 +15,8 @@ local NF_LAYERS    = nf.cod_layers
 local NF_FOLDER    = nf.md_folder
 local NF_GIT       = nf.custom_folder_github
 local NF_BRANCH    = nf.dev_git_branch
-local NF_PLE_L     = nf.ple_left_half_circle_thick
-local NF_PLE_R     = nf.ple_right_half_circle_thick
+local NF_PLE_L     = utils.NF_PLE_L
+local NF_PLE_R     = utils.NF_PLE_R
 
 local function setup()
   -- Last-rendered signature per GUI window; used to skip rendering when nothing
@@ -116,7 +115,7 @@ local function setup()
     local git_or_folder    = (git_name and #git_name > 0 and git_name) or cwd
 
     local left_status      = ribbon:new "LeftStatus"
-        :append(nil, stat_color, " " .. NF_LAYERS .. " " .. stat)
+        :append(color_scheme.tab_bar.background, stat_color, " " .. NF_LAYERS .. " " .. stat)
 
     window:set_left_status(left_status:format())
 
@@ -138,14 +137,13 @@ local function setup()
         :append(nil, "Red", NF_LAYERS .. " ")
         :append(nil, nil, tostring(total_workspaces))
 
-    local counts = agent_deck.count_agents_by_status()
-    local cfg = agent_deck.get_config()
+    local stats = agents.stats
 
     right_status
         :append(nil, "Purple", " ⋮ ")
-        :append(nil, "Yellow", cfg.icons.unicode.waiting .. " " .. counts.waiting .. " ")
-        :append(nil, "Lime", cfg.icons.unicode.working .. " " .. counts.working .. " ")
-        :append(nil, "Gray", cfg.icons.unicode.idle .. " " .. counts.idle .. " ")
+        :append(nil, "Yellow", "◔ " .. (stats.waiting or 0) .. " ")
+        :append(nil, "Lime", "● " .. (stats.working or 0) .. " ")
+        :append(nil, "Gray", "○ " .. (stats.idle or 0) .. " ")
 
 
     window:set_right_status(right_status:format())

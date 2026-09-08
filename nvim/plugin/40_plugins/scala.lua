@@ -1,7 +1,6 @@
 local utils = require("utils")
 
 vim.pack.add({
-  gh("mfussenegger/nvim-dap"),
   gh("scalameta/nvim-metals"),
 })
 

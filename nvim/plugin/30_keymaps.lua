@@ -90,7 +90,7 @@ set("n", "<leader>yp", function()
   vim.fn.setreg('+', path)
 end, { desc = "Copy absolute path to file to clipboard" })
 
-vim.keymap.set('n', '<leader>yl', function()
+set('n', '<leader>yl', function()
   local filepath = vim.fn.expand('%:.')
   local line = vim.fn.line('.')
   local result = string.format('%s:%d', filepath, line)
