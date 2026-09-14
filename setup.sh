@@ -72,6 +72,12 @@ else
 fi
 
 step "Brew bundle"
+# The Brewfile's `mas` entries reinstall App Store purchases, which only works
+# if the App Store is already signed in. brew bundle doesn't fail hard on that,
+# it just skips them, so warn up front rather than after a 20-minute run.
+if grep -q '^mas ' "${DOTFILES}/Brewfile" 2>/dev/null; then
+  followup "Sign into the App Store, then re-run setup.sh so the 'mas' entries install"
+fi
 if [[ -f "${DOTFILES}/Brewfile" ]]; then
   info "installing packages from Brewfile (this can take a while)"
   brew bundle --file "${DOTFILES}/Brewfile" || warn "brew bundle reported failures — review output above"
