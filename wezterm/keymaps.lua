@@ -1,7 +1,7 @@
 --@type Wezterm
 local wezterm = require("wezterm")
 --- @type SmartSplitsWezterm
-local smart_splits = wezterm.plugin.require "file:///Users/amorales/Code/personal/smart-splits.nvim"
+local smart_splits = wezterm.plugin.require "https://github.com/a-morales/smart-splits.nvim"
 local agents = require("agents")
 
 -- Shared with the Hammerspoon and Neovim configs; see ~/.config/lua/aerospace.lua.
