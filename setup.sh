@@ -4,8 +4,10 @@
 #
 # This repo IS ~/.config, so most tools find their configs once it's cloned
 # into place. This script handles everything that *doesn't* fall out of that
-# for free: Homebrew packages, the bits that live outside ~/.config, secret
-# file stubs, the fish shell, and a few tool caches.
+# for free: Homebrew packages (see Brewfile), the bits that live outside
+# ~/.config, secret file stubs, direnv, the fish shell, the toolchains brew
+# doesn't own (SDKMAN/JDK, rust, coursier), the Claude skills links, and a few
+# tool caches.
 #
 # Bootstrap a new machine with:
 #     git clone <repo-url> ~/.config && ~/.config/setup.sh
@@ -162,7 +164,58 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 7. Claude skills
+# 6. toolchains installed outside Homebrew
+# ---------------------------------------------------------------------------
+# Three things the configs depend on that brew can't provide on its own:
+#   - SDKMAN, which owns the JDKs (fish/fish_plugins pulls in sdkman-for-fish,
+#     and jdtls/metals both need a JDK on PATH)
+#   - a default Rust toolchain, so conform's rustfmt formatter resolves
+#   - `cs setup`, which drops metals/scalafmt into the Coursier bin dir that
+#     fish/config.fish adds to PATH
+step "Toolchains"
+
+if [[ -d "${HOME}/.sdkman" ]]; then
+  ok "SDKMAN present"
+else
+  info "installing SDKMAN"
+  curl -s "https://get.sdkman.io?rcupdate=false" | bash || warn "SDKMAN install failed"
+fi
+if [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]]; then
+  # shellcheck disable=SC1091
+  set +u; source "${HOME}/.sdkman/bin/sdkman-init.sh"; set -u
+  # `sdk current java` exits 0 either way, so match on the output instead.
+  if sdk current java 2>/dev/null | grep -q "Using java version"; then
+    ok "JDK installed ($(sdk current java 2>/dev/null | grep "Using java version"))"
+  else
+    followup "Install a JDK: sdk install java <version>  (needed by jdtls and metals)"
+  fi
+fi
+
+if command -v rustup >/dev/null 2>&1; then
+  if rustup show active-toolchain >/dev/null 2>&1; then
+    ok "rust toolchain installed"
+  else
+    info "installing default rust toolchain"
+    rustup default stable || warn "rustup default stable failed"
+  fi
+else
+  warn "rustup not installed — skipping rust toolchain"
+fi
+
+# Homebrew's coursier formula only gives us the `cs` launcher; `cs setup` is
+# what installs metals/scalafmt into the Coursier bin dir. Gate on metals
+# rather than on `cs`, which brew bundle has just put on PATH either way.
+if ! command -v cs >/dev/null 2>&1; then
+  warn "coursier not installed — skipping (scala/metals will not work)"
+elif command -v metals >/dev/null 2>&1; then
+  ok "coursier apps installed (metals on PATH)"
+else
+  info "running 'cs setup' (installs metals, scalafmt, ...)"
+  cs setup --yes || warn "cs setup failed — run it manually"
+fi
+
+# ---------------------------------------------------------------------------
+# 8. Claude skills
 # ---------------------------------------------------------------------------
 step "Claude skills"
 if [[ -x "${DOTFILES}/claude/setup-skills.sh" ]]; then
@@ -174,19 +227,28 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 8. tool caches / post-install
+# 9. tool caches / post-install
 # ---------------------------------------------------------------------------
 step "Tool caches"
 if command -v bat >/dev/null 2>&1; then
   bat cache --build >/dev/null && ok "bat theme cache built"
+fi
+if command -v nvim >/dev/null 2>&1; then
+  # vim.pack downloads plugins on first launch; do it here so the first real
+  # nvim start isn't a cold clone of every plugin in nvim/plugin/40_plugins.
+  info "syncing nvim plugins (first run clones everything — be patient)"
+  nvim --headless "+qa" >/dev/null 2>&1 && ok "nvim plugins synced" \
+    || warn "nvim plugin sync reported errors — open nvim and check :messages"
 fi
 
 # ---------------------------------------------------------------------------
 # done
 # ---------------------------------------------------------------------------
 step "Done"
+followup "Install the Cartograph CF font by hand — wezterm/configuration.lua expects it (paid, not in Homebrew)"
 followup "Grant Accessibility/Input Monitoring permissions to Karabiner-Elements and AeroSpace"
 followup "Open Karabiner-Elements once to load the profile in ~/.config/karabiner"
+followup "Grant WezTerm and AeroSpace Screen Recording permission (needed for window switching)"
 followup "Restart your terminal (or 'exec fish') to pick up the new shell"
 
 printf "\n${bold}Manual follow-ups:${reset}\n"
