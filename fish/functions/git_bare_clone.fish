@@ -1,21 +1,21 @@
 function git_bare_clone -a dir_name repo_url -d "clone the github url repo as a bare repository"
-    set -l GITHUB_URL $repo_url
-    test -n "$GITHUB_URL"; or set GITHUB_URL (pbpaste)
+    set -l github_url $repo_url
+    test -n "$github_url"; or set github_url (pbpaste)
 
-    set -l REPO_NAME $dir_name
-    test -n "$REPO_NAME"; or set REPO_NAME (basename -s .git $GITHUB_URL)
+    set -l repo_name $dir_name
+    test -n "$repo_name"; or set repo_name (basename -s .git "$github_url")
 
-    mkdir $REPO_NAME; and cd $REPO_NAME; or return
-    echo "created repo directory $REPO_NAME"
+    mkdir "$repo_name"; and cd "$repo_name"; or return
+    echo "created repo directory $repo_name"
 
-    git clone --bare $GITHUB_URL .bare
+    git clone --bare "$github_url" .bare
     echo "gitdir: ./.bare" > .git
     git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
     git fetch origin
 
-    set -l MAIN_BRANCH (git remote show origin | grep "HEAD branch" | awk -F': ' '{print $2}')
+    set -l main_branch (git remote show origin | grep "HEAD branch" | awk -F': ' '{print $2}')
 
-    git worktree add $MAIN_BRANCH $MAIN_BRANCH
-    git branch --set-upstream-to=origin/$MAIN_BRANCH $MAIN_BRANCH
-    cd $MAIN_BRANCH
+    git worktree add "$main_branch" "$main_branch"
+    git branch --set-upstream-to=origin/"$main_branch" "$main_branch"
+    cd "$main_branch"
 end

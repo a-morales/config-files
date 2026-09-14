@@ -56,9 +56,9 @@ function M.setup()
   config.macos_window_background_blur = 30
   config.bold_brightens_ansi_colors = true
   config.enable_tab_bar = true
-  config.set_environment_variables = {
-    PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
-  }
+  -- config.set_environment_variables = {
+  --   PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
+  -- }
   config.inactive_pane_hsb = {
     saturation = 0.8,
     brightness = 0.6,

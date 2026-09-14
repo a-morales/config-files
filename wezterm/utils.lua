@@ -103,7 +103,9 @@ end
 function M.tab_has_unseen_output(tab, panes)
   local pane_list = tab.panes or panes or {}
   for _, p in ipairs(pane_list) do
-    if p.has_unseen_output and p.progress == 'None' and not ignore_process_for_unseen_output(p) then
+    local is_agent_working = (wezterm.GLOBAL.agents.state_by_pane[tostring(p.pane_id)] or "") == "working"
+
+    if p.has_unseen_output and p.progress == 'None' and not ignore_process_for_unseen_output(p) and not is_agent_working then
       return true
     end
   end

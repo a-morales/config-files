@@ -16,6 +16,8 @@ local metals_config = vim.tbl_deep_extend("force", metals.bare_config(), {
   settings = {
     defaultBspToBuildTool = true,
     enableSemanticHighlighting = true,
+    startMcpServer = true,
+    mcpClient = "claude",
     inlayHints = {
       byNameParameters = { enable = true },
       hintsInPatternMatch = { enable = true },
@@ -24,11 +26,12 @@ local metals_config = vim.tbl_deep_extend("force", metals.bare_config(), {
       inferredTypes = { enable = true },
       typeParameters = { enable = true },
     },
-    serverVersion = "latest",
+    serverVersion = "latest.stable",
     superMethodLensesEnabled = false,
   },
   init_options = {
     statusBarProvider = "on",
+    icons = "unicode"
   },
   on_attach = function(_, bufnr)
     vim.keymap.set("v", "K", metals.type_of_range, { desc = "Type of selection" })

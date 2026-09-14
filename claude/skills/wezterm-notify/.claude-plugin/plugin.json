@@ -1,0 +1,10 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "wezterm-notify",
+  "version": "0.1.0",
+  "description": "Publishes Claude Code's agent state and a compact hook payload to WezTerm as the AGENT_STATE and AGENT_INPUT user vars, for use in the tab/status bar.",
+  "author": {
+    "name": "Antonio Morales",
+    "email": "Antonio.Morales.-ND@disney.com"
+  }
+}

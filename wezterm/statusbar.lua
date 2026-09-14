@@ -16,7 +16,6 @@ local NF_FOLDER    = nf.md_folder
 local NF_GIT       = nf.custom_folder_github
 local NF_BRANCH    = nf.dev_git_branch
 local NF_PLE_L     = utils.NF_PLE_L
-local NF_PLE_R     = utils.NF_PLE_R
 
 local function setup()
   -- Last-rendered signature per GUI window; used to skip rendering when nothing
@@ -71,7 +70,6 @@ local function setup()
     local leader            = window:leader_is_active()
     local cwd_path          = utils.get_cwd_path(info.cwd)
     local title             = info.title or ""
-    local status_cwd_path   = cwd_path
     local local_tab_count   = #window:mux_window():tabs()
     local workspace_count   = #wezterm.mux.get_workspace_names()
     local active_tab        = window:active_tab()
@@ -90,8 +88,6 @@ local function setup()
     if sig == _last_sig[win_key] then return end
     _last_sig[win_key] = sig
 
-    -- Branch (cached by cwd_path; runs only on sig change, not every tick)
-    local branch = branch_for(status_cwd_path)
 
     -- Determine left-status label + color.
     local stat = workspace
@@ -105,12 +101,13 @@ local function setup()
       stat_color = "Cyan"
     end
 
-    local cwd              = status_cwd_path ~= "" and utils.basename(status_cwd_path) or ""
+    local cwd              = cwd_path ~= "" and utils.basename(cwd_path) or ""
 
     local total_workspaces = workspace_count
 
     -- Right status: mutate dynamic text slots
-    local git_name         = utils.get_git_name(status_cwd_path)
+    local branch           = branch_for(cwd_path)
+    local git_name         = utils.get_git_name(cwd_path)
     local folder_icon      = git_name and NF_GIT or NF_FOLDER
     local git_or_folder    = (git_name and #git_name > 0 and git_name) or cwd
 
@@ -120,11 +117,17 @@ local function setup()
     window:set_left_status(left_status:format())
 
     local right_status = ribbon:new "RightStatus"
+
     right_status
         :append(bg:darken(0.1), bg, NF_PLE_L)
-        :append(nil, "Olive", " " .. folder_icon .. " ")
-        :append(nil, nil, git_or_folder)
-        :append(nil, "Purple", " ⋮ ")
+        :append(nil, nil, " ")
+
+    if git_or_folder ~= "" then
+      right_status
+          :append(nil, "Olive", folder_icon .. " ")
+          :append(nil, nil, git_or_folder)
+          :append(nil, "Purple", " ⋮ ")
+    end
 
     if branch ~= "" then
       right_status
@@ -137,13 +140,14 @@ local function setup()
         :append(nil, "Red", NF_LAYERS .. " ")
         :append(nil, nil, tostring(total_workspaces))
 
-    local stats = agents.stats
+    local stats = agents.get_stats()
+    local marks = agents.stateMarks
 
     right_status
         :append(nil, "Purple", " ⋮ ")
-        :append(nil, "Yellow", "◔ " .. (stats.waiting or 0) .. " ")
-        :append(nil, "Lime", "● " .. (stats.working or 0) .. " ")
-        :append(nil, "Gray", "○ " .. (stats.idle or 0) .. " ")
+        :append(nil, marks.waiting.color, marks.waiting.glyph .. " " .. (stats.waiting or 0) .. " ")
+        :append(nil, marks.working.color, marks.working.glyph .. " " .. (stats.working or 0) .. " ")
+        :append(nil, marks.idle.color, marks.idle.glyph .. " " .. (stats.idle or 0) .. " ")
 
 
     window:set_right_status(right_status:format())
