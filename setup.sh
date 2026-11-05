@@ -180,23 +180,6 @@ fi
 #     fish/config.fish adds to PATH
 step "Toolchains"
 
-if [[ -d "${HOME}/.sdkman" ]]; then
-  ok "SDKMAN present"
-else
-  info "installing SDKMAN"
-  curl -s "https://get.sdkman.io?rcupdate=false" | bash || warn "SDKMAN install failed"
-fi
-if [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]]; then
-  # shellcheck disable=SC1091
-  set +u; source "${HOME}/.sdkman/bin/sdkman-init.sh"; set -u
-  # `sdk current java` exits 0 either way, so match on the output instead.
-  if sdk current java 2>/dev/null | grep -q "Using java version"; then
-    ok "JDK installed ($(sdk current java 2>/dev/null | grep "Using java version"))"
-  else
-    followup "Install a JDK: sdk install java <version>  (needed by jdtls and metals)"
-  fi
-fi
-
 if command -v rustup >/dev/null 2>&1; then
   if rustup show active-toolchain >/dev/null 2>&1; then
     ok "rust toolchain installed"

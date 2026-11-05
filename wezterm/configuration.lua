@@ -1,14 +1,14 @@
 ---@type Wezterm
 local wezterm = require("wezterm")
 ---@type Ribbon.Api
-local ribbon  = wezterm.plugin.require("https://github.com/sravioli/ribbon.wz")
+local ribbon = wezterm.plugin.require("https://github.com/sravioli/ribbon.wz")
 
-local SCHEME  = "Everforest Dark Medium (Gogh)"
+local SCHEME = "Everforest Dark Medium (Gogh)"
 
-local M       = {}
+local M = {}
 
 function M.setup()
-  local config    = wezterm.config_builder()
+  local config = wezterm.config_builder()
   local scheme_bg = wezterm.color.parse(wezterm.color.get_builtin_schemes()[SCHEME].background)
   local scheme_fg = wezterm.color.parse(wezterm.color.get_builtin_schemes()[SCHEME].foreground)
 
@@ -18,8 +18,8 @@ function M.setup()
       foreground = scheme_fg,
       background = scheme_bg,
       attributes = {
-        Invisible = { Invisible = true }
-      }
+        Invisible = { Invisible = true },
+      },
     },
   })
 
@@ -36,6 +36,13 @@ function M.setup()
       intensity = "Bold",
       italic = true,
       font = wezterm.font("Cartograph CF", { weight = "Bold", stretch = "Normal", style = "Italic" }),
+    },
+  }
+  config.ssh_domains = {
+    {
+      name = "macos.vm",
+      remote_address = "192.168.64.3",
+      username = "admin",
     },
   }
   config.notification_handling = "AlwaysShow"
@@ -60,8 +67,9 @@ function M.setup()
   --   PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
   -- }
   config.inactive_pane_hsb = {
+    hue = 0.9,
     saturation = 0.8,
-    brightness = 0.6,
+    brightness = 1.0,
   }
   config.window_padding = {
     left = 0,
@@ -74,27 +82,25 @@ function M.setup()
       background = scheme_bg:darken(0.2),
       new_tab = {
         bg_color = scheme_bg:lighten(0.1),
-        fg_color = scheme_fg
-      }
+        fg_color = scheme_fg,
+      },
     },
   }
   config.tab_bar_style = {
-    new_tab = ribbon:new("new_tab_text")
-        :append(config.colors.tab_bar.new_tab.bg_color, nil, " +")
-        :append(config.colors.tab_bar.background, config.colors.tab_bar.new_tab.bg_color,
-          wezterm.nerdfonts.ple_right_half_circle_thick)
-        :format()
+    new_tab = ribbon
+      :new("new_tab_text")
+      :append(config.colors.tab_bar.new_tab.bg_color, nil, " +")
+      :append(
+        config.colors.tab_bar.background,
+        config.colors.tab_bar.new_tab.bg_color,
+        wezterm.nerdfonts.ple_right_half_circle_thick
+      )
+      :format(),
   }
 
   config.enable_scroll_bar = true
   config.scrollback_lines = 10000
   config.hyperlink_rules = wezterm.default_hyperlink_rules()
-
-  table.insert(config.hyperlink_rules, {
-    regex = [[APIREG-(\d+)]],
-    format = "https://deept.atlassian.net/browse/APIREG-$1",
-  })
-
 
   return config
 end

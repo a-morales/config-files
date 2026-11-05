@@ -1,14 +1,14 @@
-vim.pack.add({ gh("mrjones2014/smart-splits.nvim") })
-
--- Shared with the Hammerspoon and WezTerm configs; see ~/.config/lua/aerospace.lua.
-package.path = os.getenv("HOME") .. "/.config/lua/?.lua;" .. package.path
-local aerospace = require("aerospace")
+vim.pack.add({
+  {
+    -- src = local_pack("Code/smart-splits/smart-splits.nvim"),
+    src = gh("smart-splits-nvim/smart-splits.nvim"),
+    version = "v3",
+  },
+  gh("smart-splits-nvim/backend-wezterm"),
+})
 
 require("smart-splits").setup({
-  at_edge = function(ctx)
-    if (ctx.direction == "left" or ctx.direction == "right") then
-      vim.system(aerospace.sh(aerospace.focus_or_cycle_cmd(ctx.direction)))
-    end
-  end
-
+  mux = {
+    backend = "smart-splits-backend-wezterm",
+  },
 })

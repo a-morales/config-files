@@ -1,0 +1,6 @@
+[tools]
+java = "temurin-21"
+npm = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["java", "rust"]

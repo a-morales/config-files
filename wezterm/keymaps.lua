@@ -1,7 +1,7 @@
 --@type Wezterm
 local wezterm = require("wezterm")
 --- @type SmartSplitsWezterm
-local smart_splits = wezterm.plugin.require "https://github.com/a-morales/smart-splits.nvim"
+local smart_splits = wezterm.plugin.require("https://github.com/smart-splits-nvim/backend-wezterm")
 local agents = require("agents")
 
 -- Shared with the Hammerspoon and Neovim configs; see ~/.config/lua/aerospace.lua.
@@ -19,9 +19,9 @@ M.apply_to_config = function(config)
 
   config.mouse_bindings = {
     {
-      event = { Down = { streak = 3, button = 'Left' } },
-      action = wezterm.action.SelectTextAtMouseCursor 'SemanticZone',
-      mods = 'NONE',
+      event = { Down = { streak = 3, button = "Left" } },
+      action = wezterm.action.SelectTextAtMouseCursor("SemanticZone"),
+      mods = "NONE",
     },
   }
 
@@ -44,7 +44,7 @@ M.apply_to_config = function(config)
     {
       key = "a",
       mods = "LEADER",
-      action = agents.AgentSelector
+      action = agents.AgentSelector,
     },
     {
       key = "o",
@@ -128,26 +128,26 @@ M.apply_to_config = function(config)
     {
       key = "n",
       mods = "LEADER",
-      action = wezterm.action.PromptInputLine {
-        description = wezterm.format {
-          { Attribute = { Intensity = 'Bold' } },
-          { Foreground = { AnsiColor = 'Fuchsia' } },
-          { Text = 'Enter name for new workspace' },
-        },
+      action = wezterm.action.PromptInputLine({
+        description = wezterm.format({
+          { Attribute = { Intensity = "Bold" } },
+          { Foreground = { AnsiColor = "Fuchsia" } },
+          { Text = "Enter name for new workspace" },
+        }),
         action = wezterm.action_callback(function(window, pane, line)
           -- line will be `nil` if they hit escape without entering anything
           -- An empty string if they just hit enter
           -- Or the actual line of text they wrote
           if line then
             window:perform_action(
-              wezterm.action.SwitchToWorkspace {
+              wezterm.action.SwitchToWorkspace({
                 name = line,
-              },
+              }),
               pane
             )
           end
         end),
-      },
+      }),
     },
     {
       key = ",",
@@ -156,10 +156,7 @@ M.apply_to_config = function(config)
         description = "Enter new name for current workspace",
         action = wezterm.action_callback(function(_, _, line)
           if line then
-            wezterm.mux.rename_workspace(
-              wezterm.mux.get_active_workspace(),
-              line
-            )
+            wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line)
           end
         end),
       }),
@@ -187,8 +184,8 @@ M.apply_to_config = function(config)
       mods = "LEADER",
       action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|TABS" }),
     },
-    { key = 'UpArrow',   mods = 'SHIFT', action = wezterm.action.ScrollToPrompt(-1) },
-    { key = 'DownArrow', mods = 'SHIFT', action = wezterm.action.ScrollToPrompt(1) },
+    { key = "UpArrow", mods = "SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
+    { key = "DownArrow", mods = "SHIFT", action = wezterm.action.ScrollToPrompt(1) },
   }
 
   smart_splits.apply_to_config(config, {
@@ -198,12 +195,12 @@ M.apply_to_config = function(config)
       resize = "META",
     },
     at_edge = function(ctx)
-      if ctx.direction == 'Left' or ctx.direction == "Right" then
+      if ctx.direction == "Left" or ctx.direction == "Right" then
         switch_window(ctx.direction)
       else
         ctx.send_key()
       end
-    end
+    end,
   })
   return config
 end

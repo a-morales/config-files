@@ -7,11 +7,11 @@
 -- sections.
 
 -- Shared with the Neovim and WezTerm configs; see ~/.config/lua/aerospace.lua.
-package.path       = os.getenv("HOME") .. "/.config/lua/?.lua;" .. package.path
-local aerospace    = require("aerospace")
+package.path = os.getenv('HOME') .. '/.config/lua/?.lua;' .. package.path
+local aerospace = require('aerospace')
 
-local AEROSPACE    = aerospace.bin
-local BORDERS      = "/opt/homebrew/bin/borders"
+local AEROSPACE = aerospace.bin
+local BORDERS = '/opt/homebrew/bin/borders'
 
 -- Seconds of inactivity before the active/resize modes drop back to main.
 -- Set to 0 to disable the auto-exit timeout.
@@ -19,10 +19,10 @@ local MODE_TIMEOUT = 1
 
 -- JankyBorders active color per mode (from the old aerospace config; the
 -- main color fixes the stray "0x0x" typo in the original).
-local COLORS       = {
-  main   = "0xddd5c4a1",
-  active = "0xddbdd322",
-  resize = "0x4f809da1",
+local COLORS = {
+  main = '0xddd5c4a1',
+  active = '0xddbdd322',
+  resize = '0x4f809da1',
 }
 
 -- Helpers -------------------------------------------------------------------
@@ -34,12 +34,12 @@ end
 
 -- Run a shell pipeline asynchronously (needed for piped aerospace commands).
 local function shell(cmd)
-  hs.task.new("/bin/sh", nil, { "-c", cmd }):start()
+  hs.task.new('/bin/sh', nil, { '-c', cmd }):start()
 end
 
 -- Set the JankyBorders active color.
 local function borders(color)
-  hs.task.new(BORDERS, nil, { "active_color=" .. color }):start()
+  hs.task.new(BORDERS, nil, { 'active_color=' .. color }):start()
 end
 
 -- Cycle to the next/prev non-empty workspace on the focused monitor, landing
@@ -56,7 +56,7 @@ end
 -- Modes ---------------------------------------------------------------------
 
 local modes = {
-  main   = hs.hotkey.modal.new(),
+  main = hs.hotkey.modal.new(),
   active = hs.hotkey.modal.new(),
   resize = hs.hotkey.modal.new(),
 }
@@ -79,18 +79,24 @@ local function armTimeout()
   clearTimeout()
   if MODE_TIMEOUT and MODE_TIMEOUT > 0 then
     timeoutTimer = hs.timer.doAfter(MODE_TIMEOUT, function()
-      enterMode("main")
+      enterMode('main')
     end)
   end
 end
 
 enterMode = function(name)
   for n, m in pairs(modes) do
-    if n ~= name then m:exit() end
+    if n ~= name then
+      m:exit()
+    end
   end
   modes[name]:enter()
   borders(COLORS[name])
-  if timed[name] then armTimeout() else clearTimeout() end
+  if timed[name] then
+    armTimeout()
+  else
+    clearTimeout()
+  end
 end
 
 -- Wrap an action so that, after running, it resets the inactivity timer.
@@ -104,48 +110,166 @@ end
 
 -- main mode -----------------------------------------------------------------
 
-modes.main:bind({ "ctrl" }, ";", function() enterMode("active") end)
-modes.main:bind({ "ctrl", "cmd" }, ";", function() enterMode("resize") end)
-modes.main:bind({ "ctrl", "cmd" }, "l", function() cycleWorkspace("next") end)
-modes.main:bind({ "ctrl", "cmd" }, "h", function() cycleWorkspace("prev") end)
+modes.main:bind({ 'ctrl' }, ';', function()
+  enterMode('active')
+end)
+modes.main:bind({ 'ctrl', 'cmd' }, ';', function()
+  enterMode('resize')
+end)
+modes.main:bind({ 'ctrl', 'cmd' }, 'l', function()
+  cycleWorkspace('next')
+end)
+modes.main:bind({ 'ctrl', 'cmd' }, 'h', function()
+  cycleWorkspace('prev')
+end)
 
 -- active mode ---------------------------------------------------------------
 
-modes.active:bind({ "ctrl", "cmd" }, ";", function() enterMode("resize") end)
-modes.active:bind({}, "escape", function() enterMode("main") end)
+modes.active:bind({ 'ctrl', 'cmd' }, ';', function()
+  enterMode('resize')
+end)
+modes.active:bind({}, 'escape', function()
+  enterMode('main')
+end)
 
-modes.active:bind({ "ctrl" }, "n", tick(function() aero("focus-back-and-forth") end))
+modes.active:bind(
+  { 'ctrl' },
+  'n',
+  tick(function()
+    aero('focus-back-and-forth')
+  end)
+)
 
-modes.active:bind({ "ctrl", "cmd" }, "h", tick(function() aero("move", "left") end))
-modes.active:bind({ "ctrl", "cmd" }, "j", tick(function() aero("move", "down") end))
-modes.active:bind({ "ctrl", "cmd" }, "k", tick(function() aero("move", "up") end))
-modes.active:bind({ "ctrl", "cmd" }, "l", tick(function() aero("move", "right") end))
+modes.active:bind(
+  { 'ctrl', 'cmd' },
+  'h',
+  tick(function()
+    aero('move', 'left')
+  end)
+)
+modes.active:bind(
+  { 'ctrl', 'cmd' },
+  'j',
+  tick(function()
+    aero('move', 'down')
+  end)
+)
+modes.active:bind(
+  { 'ctrl', 'cmd' },
+  'k',
+  tick(function()
+    aero('move', 'up')
+  end)
+)
+modes.active:bind(
+  { 'ctrl', 'cmd' },
+  'l',
+  tick(function()
+    aero('move', 'right')
+  end)
+)
 
 for i = 1, 5 do
-  modes.active:bind({}, tostring(i), tick(function() aero("workspace", tostring(i)) end))
+  modes.active:bind(
+    {},
+    tostring(i),
+    tick(function()
+      aero('workspace', tostring(i))
+    end)
+  )
 end
 
-modes.active:bind({}, ",", tick(function() aero("reload-config") end))
-modes.active:bind({}, "=", tick(function() aero("balance-sizes") end))
+modes.active:bind(
+  {},
+  ',',
+  tick(function()
+    aero('reload-config')
+  end)
+)
+modes.active:bind(
+  {},
+  '=',
+  tick(function()
+    aero('flatten-workspace-tree')
+  end)
+)
 
 -- resize mode ---------------------------------------------------------------
 
-modes.resize:bind({ "ctrl" }, ";", function() enterMode("active") end)
-modes.resize:bind({}, "escape", function() enterMode("main") end)
+modes.resize:bind({ 'ctrl' }, ';', function()
+  enterMode('active')
+end)
+modes.resize:bind({}, 'escape', function()
+  enterMode('main')
+end)
 
-modes.resize:bind({}, "z", tick(function() aero("fullscreen") end))
-modes.resize:bind({}, "f", tick(function() aero("layout", "floating", "tiling") end))
-modes.resize:bind({}, "s", tick(function() aero("layout", "tiles", "accordion") end))
-modes.resize:bind({}, "\\", tick(function() aero("layout", "horizontal", "vertical") end))
+modes.resize:bind(
+  {},
+  'z',
+  tick(function()
+    aero('fullscreen')
+  end)
+)
+modes.resize:bind(
+  {},
+  'f',
+  tick(function()
+    aero('layout', 'floating', 'tiling')
+  end)
+)
+modes.resize:bind(
+  {},
+  's',
+  tick(function()
+    aero('layout', 'tiles', 'accordion')
+  end)
+)
+modes.resize:bind(
+  {},
+  '\\',
+  tick(function()
+    aero('layout', 'horizontal', 'vertical')
+  end)
+)
 
-modes.resize:bind({}, "-", tick(function() aero("resize", "smart", "-50") end))
-modes.resize:bind({}, "=", tick(function() aero("resize", "smart", "+50") end))
+modes.resize:bind(
+  {},
+  '-',
+  tick(function()
+    aero('resize', 'smart', '-50')
+  end)
+)
+modes.resize:bind(
+  {},
+  '=',
+  tick(function()
+    aero('resize', 'smart', '+50')
+  end)
+)
 
 for i = 1, 5 do
-  modes.resize:bind({}, tostring(i), tick(function() aero("move-node-to-workspace", tostring(i)) end))
+  modes.resize:bind(
+    {},
+    tostring(i),
+    tick(function()
+      aero('move-node-to-workspace', tostring(i))
+    end)
+  )
 end
-modes.resize:bind({}, "l", tick(function() aero("move-node-to-workspace", "--wrap-around", "next") end))
-modes.resize:bind({}, "h", tick(function() aero("move-node-to-workspace", "--wrap-around", "prev") end))
+modes.resize:bind(
+  {},
+  'l',
+  tick(function()
+    aero('move-node-to-workspace', '--wrap-around', 'next')
+  end)
+)
+modes.resize:bind(
+  {},
+  'h',
+  tick(function()
+    aero('move-node-to-workspace', '--wrap-around', 'prev')
+  end)
+)
 
 -- Seamless focus navigation ---------------------------------------------------
 --
@@ -158,15 +282,23 @@ modes.resize:bind({}, "h", tick(function() aero("move-node-to-workspace", "--wra
 -- "pass through" is a genuine no-op rather than a re-synthesized keystroke.
 
 local PASSTHROUGH_APPS = {
-  ["com.github.wez.wezterm"] = true,
+  ['com.github.wez.wezterm'] = true,
 }
 
 local focusNav = hs.hotkey.modal.new()
 
-focusNav:bind({ "ctrl" }, "h", function() focusOrCycle("left") end)
-focusNav:bind({ "ctrl" }, "j", function() aero("focus", "down") end)
-focusNav:bind({ "ctrl" }, "k", function() aero("focus", "up") end)
-focusNav:bind({ "ctrl" }, "l", function() focusOrCycle("right") end)
+focusNav:bind({ 'ctrl' }, 'h', function()
+  focusOrCycle('left')
+end)
+focusNav:bind({ 'ctrl' }, 'j', function()
+  aero('focus', 'down')
+end)
+focusNav:bind({ 'ctrl' }, 'k', function()
+  aero('focus', 'up')
+end)
+focusNav:bind({ 'ctrl' }, 'l', function()
+  focusOrCycle('right')
+end)
 
 local function syncFocusNav(app)
   app = app or hs.application.frontmostApplication()
@@ -188,6 +320,6 @@ end)
 appWatcher:start()
 
 -- Start in main mode.
-enterMode("main")
+enterMode('main')
 syncFocusNav()
-hs.alert.show("Aerospace bindings loaded")
+hs.alert.show('Aerospace bindings loaded')

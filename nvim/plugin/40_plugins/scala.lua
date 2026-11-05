@@ -2,6 +2,7 @@ local utils = require("utils")
 
 vim.pack.add({
   gh("scalameta/nvim-metals"),
+  gh("mfussenegger/nvim-dap"),
 })
 
 local metals = require("metals")
@@ -26,12 +27,12 @@ local metals_config = vim.tbl_deep_extend("force", metals.bare_config(), {
       inferredTypes = { enable = true },
       typeParameters = { enable = true },
     },
-    serverVersion = "latest.stable",
+    serverVersion = "2.0.0-M19",
     superMethodLensesEnabled = false,
   },
   init_options = {
     statusBarProvider = "on",
-    icons = "unicode"
+    icons = "unicode",
   },
   on_attach = function(_, bufnr)
     vim.keymap.set("v", "K", metals.type_of_range, { desc = "Type of selection" })
@@ -51,6 +52,26 @@ local metals_config = vim.tbl_deep_extend("force", metals.bare_config(), {
     })
 
     metals.setup_dap()
+
+    local dap = require("dap")
+    dap.configurations.scala = {
+      {
+        type = "scala",
+        request = "launch",
+        name = "Run or Test File",
+        metals = {
+          runType = "runOrTestFile",
+        },
+      },
+      {
+        type = "scala",
+        request = "launch",
+        name = "Test Target",
+        metals = {
+          runType = "testTarget",
+        },
+      },
+    }
   end,
 })
 

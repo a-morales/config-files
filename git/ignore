@@ -1,0 +1,7 @@
+**/.claude/settings.local.json
+
+**/.claude/.cc-writes/
+.mcp.json
+.metals/
+project/metals.sbt
+project/project/
